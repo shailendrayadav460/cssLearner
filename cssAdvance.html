@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Complete Guide – Apna College</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0f1a;
+    --card: #131929;
+    --card2: #1a2235;
+    --border: #1e2d45;
+    --accent: #f5a623;
+    --cyan: #00d4ff;
+    --green: #22c55e;
+    --pink: #f472b6;
+    --purple: #a78bfa;
+    --red: #f87171;
+    --text: #e2e8f0;
+    --muted: #8899aa;
+    --code-bg: #0d1117;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(245,166,35,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(0,212,255,0.10) 0%, transparent 70%),
+      var(--bg);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0px, transparent 1px, transparent 60px);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.4);
+    color: var(--accent);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(2.6rem, 7vw, 5.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    animation: fadeDown 0.8s ease 0.1s both;
+  }
+
+  .hero h1 .hl  { color: var(--accent); }
+  .hero h1 .hl2 { color: var(--cyan); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--muted);
+    max-width: 660px;
+    margin: 20px auto 36px;
+    animation: fadeDown 0.8s ease 0.2s both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeDown 0.8s ease 0.3s both;
+  }
+
+  .btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+    font-family: 'Nunito', sans-serif;
+  }
+  .btn-primary { background: var(--accent); color: #000; box-shadow: 0 4px 20px rgba(245,166,35,0.35); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,166,35,0.5); }
+  .btn-outline  { border: 2px solid var(--border); color: var(--text); background: transparent; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint::after { content: '↓'; font-size: 20px; color: var(--accent); }
+
+  /* ── LAYOUT ── */
+  .page-layout {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 32px 20px;
+    border-right: 1px solid var(--border);
+    background: var(--card);
+  }
+  .sidebar h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+  .nav-item:hover, .nav-item.active { background: rgba(245,166,35,0.12); color: var(--accent); }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.2s; }
+  .nav-item:hover .nav-dot, .nav-item.active .nav-dot { background: var(--accent); }
+
+  .content { padding: 52px 44px; }
+  .section  { margin-bottom: 84px; }
+
+  /* ── LEVEL HEADER ── */
+  .level-header { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+  .level-badge {
+    font-family: 'Baloo 2', cursive;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--accent);
+    padding: 4px 14px;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+  .level-line { flex: 1; height: 1px; background: var(--border); }
+
+  .section-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .section-title span { color: var(--accent); }
+  .section-desc { color: var(--muted); max-width: 740px; margin-bottom: 32px; font-size: 15px; }
+
+  /* ── CARDS ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; margin-bottom: 32px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-3px); border-color: rgba(245,166,35,0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+  .card-icon  { font-size: 28px; margin-bottom: 12px; }
+  .card-title { font-family: 'Baloo 2', cursive; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+  .card-body  { font-size: 14px; color: var(--muted); }
+
+  /* ── CODE BLOCK ── */
+  .code-block { background: var(--code-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+  .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); }
+  .code-dots { display: flex; gap: 6px; }
+  .code-dot  { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dot:nth-child(1) { background: #f87171; }
+  .code-dot:nth-child(2) { background: #facc15; }
+  .code-dot:nth-child(3) { background: #4ade80; }
+  .code-lang { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .code-body { padding: 20px; overflow-x: auto; line-height: 1.9; }
+  .kw  { color: #79c0ff; }
+  .sel { color: #56d364; }
+  .prop{ color: #ffa657; }
+  .val { color: #f0883e; }
+  .cm  { color: #8b949e; font-style: italic; }
+  .at  { color: #d2a8ff; }
+  .str { color: #a5d6ff; }
+
+  /* ── TIP / WARN BOXES ── */
+  .tip-box  { background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.2); border-left: 4px solid var(--cyan); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 20px 0; font-size: 14px; }
+  .tip-box  strong { color: var(--cyan); display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+  .warn-box { background: rgba(245,166,35,0.06); border: 1px solid rgba(245,166,35,0.25); border-left: 4px solid var(--accent); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 20px 0; font-size: 14px; }
+  .warn-box strong { color: var(--accent); display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { background: var(--card2); padding: 12px 16px; text-align: left; font-family: 'Baloo 2', cursive; font-weight: 700; color: var(--accent); border-bottom: 2px solid var(--border); }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .tag { font-family: 'JetBrains Mono', monospace; background: rgba(0,212,255,0.1); color: var(--cyan); padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+
+  /* ── BOX MODEL VISUAL ── */
+  .box-model-visual { display: flex; align-items: center; justify-content: center; padding: 40px; background: var(--card); border-radius: 14px; border: 1px solid var(--border); margin: 24px 0; }
+  .bm-margin  { background: rgba(244,114,182,0.1); border: 2px dashed rgba(244,114,182,0.5); padding: 20px; border-radius: 8px; position: relative; }
+  .bm-margin::before  { content: 'Margin'; position: absolute; top: 4px; left: 8px; font-size: 11px; color: var(--pink); font-weight: 700; letter-spacing: 1px; }
+  .bm-border  { background: rgba(167,139,250,0.1); border: 3px solid rgba(167,139,250,0.6); padding: 18px; border-radius: 4px; position: relative; }
+  .bm-border::before  { content: 'Border'; position: absolute; top: 4px; left: 8px; font-size: 11px; color: var(--purple); font-weight: 700; letter-spacing: 1px; }
+  .bm-padding { background: rgba(34,197,94,0.08); border: 2px dashed rgba(34,197,94,0.4); padding: 16px; position: relative; }
+  .bm-padding::before { content: 'Padding'; position: absolute; top: 4px; left: 8px; font-size: 11px; color: var(--green); font-weight: 700; letter-spacing: 1px; }
+  .bm-content { background: rgba(0,212,255,0.15); border: 2px solid rgba(0,212,255,0.4); padding: 20px 36px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cyan); font-weight: 700; border-radius: 2px; }
+
+  /* ── FLEX DEMO ── */
+  .flex-demo { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; }
+  .flex-demo-label { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
+  .flex-container { display: flex; gap: 8px; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; min-height: 80px; flex-wrap: wrap; align-items: center; transition: all 0.3s; }
+  .flex-item { background: var(--accent); color: #000; font-weight: 700; font-size: 13px; padding: 10px 18px; border-radius: 6px; min-width: 50px; text-align: center; }
+  .flex-item:nth-child(2) { background: var(--cyan); }
+  .flex-item:nth-child(3) { background: var(--green); }
+  .flex-controls { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .flex-btn { padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border); background: var(--card2); color: var(--text); font-size: 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; transition: all 0.2s; }
+  .flex-btn:hover, .flex-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(245,166,35,0.08); }
+
+  /* ── COLOR SWATCHES ── */
+  .color-grid { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+  .swatch { width: 80px; height: 80px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 8px; font-size: 10px; font-family: 'JetBrains Mono', monospace; font-weight: 600; color: rgba(0,0,0,0.75); box-shadow: 0 4px 16px rgba(0,0,0,0.3); transition: transform 0.2s; cursor: default; }
+  .swatch:hover { transform: scale(1.1) rotate(-2deg); }
+
+  /* ── PRACTICE CARD ── */
+  .practice-card { background: linear-gradient(135deg, rgba(245,166,35,0.07), rgba(0,212,255,0.04)); border: 1px solid rgba(245,166,35,0.22); border-radius: 14px; padding: 28px; margin: 24px 0; }
+  .practice-title { font-family: 'Baloo 2', cursive; font-size: 1.1rem; font-weight: 800; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .practice-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; font-size: 14px; }
+  .practice-num { background: var(--accent); color: #000; font-weight: 800; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── TRANSFORM DEMO ── */
+  .transform-grid { display: flex; gap: 16px; flex-wrap: wrap; margin: 20px 0; }
+  .transform-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; flex: 1; min-width: 130px; text-align: center; }
+  .transform-box { width: 60px; height: 60px; background: rgba(245,166,35,0.15); border: 2px solid var(--accent); border-radius: 8px; margin: 0 auto 12px; transition: transform 0.35s; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .transform-item:hover .transform-box.r  { transform: rotate(45deg); }
+  .transform-item:hover .transform-box.s  { transform: scale(1.4); }
+  .transform-item:hover .transform-box.t  { transform: translateX(22px); }
+  .transform-item:hover .transform-box.sk { transform: skew(15deg); }
+  .transform-label { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* ── ANIMATION DEMO ── */
+  .anim-demo { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin: 20px 0; display: flex; gap: 28px; flex-wrap: wrap; align-items: center; justify-content: center; }
+  .demo-box { width: 84px; height: 84px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; flex-direction: column; gap: 4px; }
+  .spin-box  { background: rgba(245,166,35,0.15); border: 4px solid transparent; border-top-color: var(--accent); border-radius: 50%; width: 64px; height: 64px; animation: spin 1s linear infinite; }
+  .pulse-box { background: rgba(244,114,182,0.15); border: 2px solid var(--pink); animation: pulse 1.5s ease-in-out infinite; color: var(--pink); font-size: 10px; }
+  .slide-box { background: rgba(0,212,255,0.15); border: 2px solid var(--cyan); animation: slideInOut 2s ease-in-out infinite; color: var(--cyan); font-size: 10px; }
+  .bounce-box{ background: rgba(34,197,94,0.15); border: 2px solid var(--green); animation: bounceUp 1s ease-in-out infinite; color: var(--green); font-size: 10px; border-radius: 50%; }
+
+  @keyframes spin       { to { transform: rotate(360deg); } }
+  @keyframes pulse      { 0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.15);opacity:0.7;} }
+  @keyframes slideInOut { 0%,100%{transform:translateX(0);}50%{transform:translateX(28px);} }
+  @keyframes bounceUp   { 0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);} }
+  @keyframes fadeDown   { from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);} }
+  @keyframes bounce     { 0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-8px);} }
+
+  /* ── MQ DEMO ── */
+  .mq-demo { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; }
+  .mq-bar   { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 13px; }
+  .mq-label { width: 120px; color: var(--muted); font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+  .mq-track { flex: 1; height: 28px; border-radius: 6px; position: relative; overflow: hidden; background: rgba(255,255,255,0.04); }
+  .mq-fill  { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 12px; font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: #000; }
+
+  /* ── TAGS ── */
+  .ptag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+  .ptag-cyan   { background: rgba(0,212,255,0.1);   color: var(--cyan);   border: 1px solid rgba(0,212,255,0.25); }
+  .ptag-orange { background: rgba(245,166,35,0.1);  color: var(--accent); border: 1px solid rgba(245,166,35,0.25); }
+  .ptag-green  { background: rgba(34,197,94,0.1);   color: var(--green);  border: 1px solid rgba(34,197,94,0.25); }
+  .ptag-pink   { background: rgba(244,114,182,0.1); color: var(--pink);   border: 1px solid rgba(244,114,182,0.25); }
+  .ptag-purple { background: rgba(167,139,250,0.1); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+
+  .divider { height: 1px; background: var(--border); margin: 52px 0; }
+
+  /* ══════════════════════════════════════════
+     ADVANCED CSS SUMMARY SECTION – Special styles
+  ══════════════════════════════════════════ */
+
+  .adv-section {
+    background: linear-gradient(135deg, rgba(167,139,250,0.06) 0%, rgba(0,212,255,0.04) 100%);
+    border: 1px solid rgba(167,139,250,0.25);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 84px;
+    position: relative;
+    overflow: hidden;
+  }
+  .adv-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(167,139,250,0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .adv-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .adv-badge {
+    font-family: 'Baloo 2', cursive;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: rgba(167,139,250,0.2);
+    border: 1px solid rgba(167,139,250,0.4);
+    color: var(--purple);
+    padding: 4px 14px;
+    border-radius: 50px;
+  }
+
+  /* Property chip row */
+  .prop-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+  .prop-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: 1px solid;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .chip-purple { background: rgba(167,139,250,0.1); color: var(--purple); border-color: rgba(167,139,250,0.3); }
+  .chip-cyan   { background: rgba(0,212,255,0.1);   color: var(--cyan);   border-color: rgba(0,212,255,0.3); }
+  .chip-green  { background: rgba(34,197,94,0.1);   color: var(--green);  border-color: rgba(34,197,94,0.3); }
+  .chip-orange { background: rgba(245,166,35,0.1);  color: var(--accent); border-color: rgba(245,166,35,0.3); }
+  .chip-pink   { background: rgba(244,114,182,0.1); color: var(--pink);   border-color: rgba(244,114,182,0.3); }
+  .chip-red    { background: rgba(248,113,113,0.1); color: var(--red);    border-color: rgba(248,113,113,0.3); }
+
+  /* Summary grid */
+  .adv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 28px; }
+  .adv-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .adv-card:hover { transform: translateY(-3px); border-color: rgba(167,139,250,0.35); }
+  .adv-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .adv-card-icon { font-size: 22px; }
+  .adv-card-title { font-family: 'Baloo 2', cursive; font-size: 1rem; font-weight: 800; }
+  .adv-card-body  { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+  .adv-card-body code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; color: var(--text); }
+
+  /* This-website box */
+  .site-adv-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 20px; }
+  .site-adv-table th { background: rgba(167,139,250,0.12); padding: 10px 14px; text-align: left; font-family: 'Baloo 2', cursive; color: var(--purple); border-bottom: 2px solid rgba(167,139,250,0.25); }
+  .site-adv-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .site-adv-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .where-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(0,212,255,0.1); color: var(--cyan); padding: 2px 7px; border-radius: 4px; }
+
+  /* ── FOOTER ── */
+  footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+  footer span { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { width: 100%; justify-content: center;};
+    .page-layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .content { padding: 32px 20px; }
+    .adv-section { padding: 24px; }
+  }
+  @media (max-width: 600px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .adv-grid  { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+
+<!-- ═══════ HERO ═══════ -->
+ 
+<section class="hero" id="top">
+  <div class="badge">🎓 Our College </div>
+  <h1>
+    Learn <span class="hl">CSS</span><br>
+    From <span class="hl2">Scratch</span> to Advanced 🚀
+  </h1>
+  <p class="hero-sub">
+    CSS Basics, Box Model, Flexbox, Position, Animations — everything explained clearly
+    with live demos and all 8 practice sets from Apna College notes.
+  </p>
+  <div class="hero-btns">
+    <a href="#basics"   class="btn btn-primary">Start Learning ↓</a>
+    <a href="#advanced-summary" class="btn btn-outline">Advanced CSS Summary 🔥</a>
+  </div>
+  <div class="scroll-hint">Scroll Down</div>
+</section>
+
+<!-- ═══════ LAYOUT ═══════ -->
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h3>Chapters</h3>
+    <a class="nav-item" href="#basics">   <span class="nav-dot"></span>Level 1 – CSS Basics</a>
+    <a class="nav-item" href="#colors">   <span class="nav-dot"></span>Colors</a>
+    <a class="nav-item" href="#selectors"><span class="nav-dot"></span>Selectors</a>
+    <a class="nav-item" href="#text">     <span class="nav-dot"></span>Text Properties</a>
+    <a class="nav-item" href="#boxmodel"> <span class="nav-dot"></span>Level 2 – Box Model</a>
+    <a class="nav-item" href="#display">  <span class="nav-dot"></span>Display Property</a>
+    <a class="nav-item" href="#position"> <span class="nav-dot"></span>Level 3 – Position</a>
+    <a class="nav-item" href="#units">    <span class="nav-dot"></span>Units (px, em, rem…)</a>
+    <a class="nav-item" href="#flexbox">  <span class="nav-dot"></span>Level 4 – Flexbox</a>
+    <a class="nav-item" href="#media">    <span class="nav-dot"></span>Media Queries</a>
+    <a class="nav-item" href="#advanced"> <span class="nav-dot"></span>Level 5 – Transform & Anim</a>
+    <a class="nav-item" href="#practice"> <span class="nav-dot"></span>Practice Sets 🎯</a>
+    <a class="nav-item" href="#advanced-summary" style="color:var(--purple)"><span class="nav-dot" style="background:var(--purple)"></span>⭐ Advanced CSS Used Here</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="content">
+
+    <!-- ══ LEVEL 1 – BASICS ══ -->
+    <section class="section" id="basics">
+      <div class="level-header">
+        <span class="level-badge">Level 1</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">What is CSS? <span>🎨</span></h2>
+      <p class="section-desc">
+        CSS stands for <strong>Cascading Style Sheet</strong>. It is a <em>styling language</em> — not a programming language.
+        Its job is to make HTML content look beautiful. Think of HTML as the bare structure of a house and CSS as the paint, furniture, and decoration.
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">🏗️</div>
+          <div class="card-title">HTML – Structure</div>
+          <div class="card-body">Provides the skeleton of the page — walls, doors, windows. No styling at all.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <div class="card-title">CSS – Style</div>
+          <div class="card-body">Makes everything look good — colors, fonts, spacing, layout. This is what CSS does.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <div class="card-title">JS – Logic</div>
+          <div class="card-body">Adds interactivity — button clicks, form validation, dynamic updates.</div>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="font-size:1.25rem; margin-top:36px;">Basic Syntax</h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS</span></div>
+        <div class="code-body">
+<span class="cm">/* selector { property: value; }  ← the golden formula */</span>
+
+<span class="sel">h1</span> {
+  <span class="prop">color</span>: <span class="val">red</span>;       <span class="cm">/* changes text color */</span>
+  <span class="prop">font-size</span>: <span class="val">24px</span>;  <span class="cm">/* changes text size  */</span>
+}
+
+<span class="cm">/* Selector  → which element to style
+   Property  → what to change
+   Value     → how to change it
+   Semicolon → marks end of one property (always add it!) */</span>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="font-size:1.25rem; margin-top:36px;">3 Ways to Add CSS</h3>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">1️⃣</div>
+          <div class="card-title">Inline Style</div>
+          <div class="card-body">Written directly on the element using the <code class="ptag ptag-cyan">style=""</code> attribute.<br><br>❌ Not recommended — repetitive and messy.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">2️⃣</div>
+          <div class="card-title">&lt;style&gt; Tag</div>
+          <div class="card-body">CSS written inside a <code class="ptag ptag-orange">&lt;style&gt;</code> tag in the same HTML file.<br><br>✅ Okay for small projects.</div>
+        </div>
+        <div class="card" style="border-color:rgba(34,197,94,0.35)">
+          <div class="card-icon">3️⃣</div>
+          <div class="card-title">External Stylesheet ⭐</div>
+          <div class="card-body">CSS in a separate <code class="ptag ptag-green">.css</code> file, linked to the HTML.<br><br>✅ <strong>Best practice</strong> — clean, reusable, maintainable.</div>
+        </div>
+      </div>
+
+      <div class="warn-box">
+        <strong>⚠️ Priority Rule</strong>
+        Inline style &gt; &lt;style&gt; tag &gt; External stylesheet. Inline always wins because it has the highest specificity.
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">HTML – Linking an External Stylesheet</span></div>
+        <div class="code-body">
+<span class="kw">&lt;link</span> <span class="prop">rel</span>=<span class="str">"stylesheet"</span> <span class="prop">href</span>=<span class="str">"style.css"</span><span class="kw">&gt;</span>  <span class="cm">&lt;!-- goes inside &lt;head&gt; --&gt;</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ COLORS ══ -->
+    <section class="section" id="colors">
+      <h2 class="section-title">Colors <span>🎨</span></h2>
+      <p class="section-desc">Three main ways to specify colors in CSS. Hex and RGB are used most often.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">🔤</div>
+          <div class="card-title">Named Colors</div>
+          <div class="card-body"><code class="ptag ptag-cyan">color: red;</code><br><code class="ptag ptag-cyan">color: blue;</code><br><code class="ptag ptag-cyan">color: pink;</code><br><br>147 named colors available in CSS.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎛️</div>
+          <div class="card-title">RGB</div>
+          <div class="card-body"><code class="ptag ptag-orange">rgb(255, 0, 0)</code> → Red<br><code class="ptag ptag-orange">rgb(0, 255, 0)</code> → Green<br><br>Three values: Red, Green, Blue — each 0 to 255.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">#️⃣</div>
+          <div class="card-title">Hex (Hexadecimal)</div>
+          <div class="card-body"><code class="ptag ptag-green">#ff0000</code> → Red<br><code class="ptag ptag-green">#00ff00</code> → Green<br><br># followed by 6 hex characters. Designers love this!</div>
+        </div>
+      </div>
+
+      <div class="color-grid">
+        <div class="swatch" style="background:#ff6b6b;">#ff6b6b</div>
+        <div class="swatch" style="background:#ffd93d;">#ffd93d</div>
+        <div class="swatch" style="background:#6bcb77;">#6bcb77</div>
+        <div class="swatch" style="background:#4d96ff; color:rgba(0,0,0,0.7);">#4d96ff</div>
+        <div class="swatch" style="background:#c77dff;">#c77dff</div>
+        <div class="swatch" style="background:#ff9f1c;">#ff9f1c</div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – RGBA with Opacity</span></div>
+        <div class="code-body">
+<span class="sel">div</span> {
+  <span class="prop">color</span>: <span class="val">rgba(255, 0, 0, 0.5)</span>;  <span class="cm">/* 4th value = opacity (0–1) */</span>
+  <span class="prop">background-color</span>: <span class="val">rgba(0, 0, 255, 0.2)</span>; <span class="cm">/* semi-transparent blue */</span>
+}
+        </div>
+      </div>
+      <div class="tip-box">
+        <strong>💡 Pro Tip</strong>
+        Don't guess colors! Search "color picker" on Google or use online tools to get the exact hex/rgb code you need.
+      </div>
+    </section>
+
+    <!-- ══ SELECTORS ══ -->
+    <section class="section" id="selectors">
+      <h2 class="section-title">Selectors <span>🎯</span></h2>
+      <p class="section-desc">A selector tells CSS which HTML element(s) to apply styles to. It is the first part of every CSS rule.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Type</th><th>Syntax</th><th>What it targets</th><th>Example</th></tr>
+          <tr><td><strong style="color:var(--accent)">Universal</strong></td><td><span class="tag">* { }</span></td><td>Every single element on the page</td><td style="color:var(--muted); font-size:13px;">* { box-sizing: border-box; }</td></tr>
+          <tr><td><strong style="color:var(--cyan)">Element</strong></td><td><span class="tag">h1 { }</span></td><td>All elements of a specific HTML tag</td><td style="color:var(--muted); font-size:13px;">h1 { color: red; }</td></tr>
+          <tr><td><strong style="color:var(--green)">ID</strong></td><td><span class="tag">#myId { }</span></td><td>One unique element with that id</td><td style="color:var(--muted); font-size:13px;">#header { background: black; }</td></tr>
+          <tr><td><strong style="color:var(--pink)">Class</strong></td><td><span class="tag">.myClass { }</span></td><td>All elements sharing that class name</td><td style="color:var(--muted); font-size:13px;">.card { border-radius: 8px; }</td></tr>
+        </table>
+      </div>
+
+      <div class="warn-box">
+        <strong>⚠️ ID vs Class</strong>
+        An ID (<code>#</code>) must be unique — use it only once per page. A Class (<code>.</code>) can be shared across many elements. In practice, prefer classes.
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – All Selector Types</span></div>
+        <div class="code-body">
+<span class="sel">*</span>        { <span class="prop">box-sizing</span>: <span class="val">border-box</span>; }  <span class="cm">/* universal */</span>
+<span class="sel">h1</span>       { <span class="prop">color</span>: <span class="val">red</span>; }              <span class="cm">/* element  */</span>
+<span class="sel">#box</span>     { <span class="prop">background</span>: <span class="val">blue</span>; }         <span class="cm">/* id       */</span>
+<span class="sel">.heading</span> { <span class="prop">font-size</span>: <span class="val">24px</span>; }         <span class="cm">/* class    */</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TEXT PROPERTIES ══ -->
+    <section class="section" id="text">
+      <h2 class="section-title">Text Properties <span>✍️</span></h2>
+      <p class="section-desc">Properties that control how text looks — alignment, decoration, weight, size, and more.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Property</th><th>Common Values</th><th>What it does</th></tr>
+          <tr><td><span class="tag">text-align</span></td><td><code class="ptag ptag-cyan">left / right / center</code></td><td>Aligns text within its parent container.</td></tr>
+          <tr><td><span class="tag">text-decoration</span></td><td><code class="ptag ptag-orange">underline / overline / line-through / none</code></td><td>Adds decorative lines. Use <code>none</code> to remove underline from links.</td></tr>
+          <tr><td><span class="tag">font-weight</span></td><td><code class="ptag ptag-green">normal / bold / 100–900</code></td><td>Controls how thick/bold the text is. 400 = normal, 700 = bold.</td></tr>
+          <tr><td><span class="tag">font-size</span></td><td><code class="ptag ptag-pink">16px / 1rem / 2em</code></td><td>Size of the text. 96px = 1 inch.</td></tr>
+          <tr><td><span class="tag">font-family</span></td><td><code class="ptag ptag-purple">arial / roboto / "Times New Roman"</code></td><td>Which font to use. List multiple as fallbacks.</td></tr>
+          <tr><td><span class="tag">line-height</span></td><td><code class="ptag ptag-cyan">2px / 1.5 / normal</code></td><td>Space between lines. 1.5 is great for readability.</td></tr>
+          <tr><td><span class="tag">text-transform</span></td><td><code class="ptag ptag-orange">uppercase / lowercase / capitalize / none</code></td><td>Automatically changes case of text.</td></tr>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Text Properties</span></div>
+        <div class="code-body">
+<span class="sel">h1</span> {
+  <span class="prop">text-align</span>: <span class="val">center</span>;
+  <span class="prop">text-transform</span>: <span class="val">uppercase</span>;
+  <span class="prop">font-family</span>: <span class="val">arial, roboto</span>;  <span class="cm">/* roboto is the fallback */</span>
+  <span class="prop">font-weight</span>: <span class="val">700</span>;
+  <span class="prop">text-decoration</span>: <span class="val">none</span>;     <span class="cm">/* removes default underline from links */</span>
+  <span class="prop">line-height</span>: <span class="val">1.6</span>;
+}
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Generic Font Families</strong>
+        CSS has 5 generic font families: Serif, Sans-Serif, Cursive, Fantasy, Monospace. Always end your font-family list with a generic name as the final fallback.
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══ LEVEL 2 – BOX MODEL ══ -->
+    <section class="section" id="boxmodel">
+      <div class="level-header">
+        <span class="level-badge">Level 2</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">The Box Model <span>📦</span></h2>
+      <p class="section-desc">
+        Every element in CSS is a rectangular box with four layers:
+        <strong>Content → Padding → Border → Margin</strong>. Understanding this is the most fundamental concept in CSS.
+      </p>
+
+      <div class="box-model-visual">
+        <div class="bm-margin">
+          <div class="bm-border">
+            <div class="bm-padding">
+              <div class="bm-content">Content</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="card" style="border-color:rgba(0,212,255,0.3)">
+          <div class="card-icon">📄</div>
+          <div class="card-title" style="color:var(--cyan)">Content</div>
+          <div class="card-body">The actual text or image. <code>width</code> and <code>height</code> set the size of this area by default.</div>
+        </div>
+        <div class="card" style="border-color:rgba(34,197,94,0.3)">
+          <div class="card-icon">🛋️</div>
+          <div class="card-title" style="color:var(--green)">Padding</div>
+          <div class="card-body">Space between content and border — <strong>inside</strong> the element. Background color shows through padding.</div>
+        </div>
+        <div class="card" style="border-color:rgba(167,139,250,0.3)">
+          <div class="card-icon">🖼️</div>
+          <div class="card-title" style="color:var(--purple)">Border</div>
+          <div class="card-body">The visible outline around the element. You control width, style, and color.</div>
+        </div>
+        <div class="card" style="border-color:rgba(244,114,182,0.3)">
+          <div class="card-icon">↔️</div>
+          <div class="card-title" style="color:var(--pink)">Margin</div>
+          <div class="card-body">Space <strong>outside</strong> the border. Creates distance between this element and its neighbors.</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Box Model Properties</span></div>
+        <div class="code-body">
+<span class="sel">div</span> {
+  <span class="prop">width</span>: <span class="val">200px</span>;
+  <span class="prop">height</span>: <span class="val">100px</span>;
+
+  <span class="cm">/* Border shorthand: width | style | color */</span>
+  <span class="prop">border</span>: <span class="val">2px solid black</span>;
+  <span class="prop">border-radius</span>: <span class="val">10px</span>;    <span class="cm">/* rounded corners */</span>
+  <span class="prop">border-radius</span>: <span class="val">50%</span>;     <span class="cm">/* perfect circle! */</span>
+
+  <span class="cm">/* Padding shorthand */</span>
+  <span class="prop">padding</span>: <span class="val">20px</span>;             <span class="cm">/* all 4 sides */</span>
+  <span class="prop">padding</span>: <span class="val">10px 20px</span>;        <span class="cm">/* top+bottom | left+right */</span>
+  <span class="prop">padding</span>: <span class="val">5px 10px 15px 20px</span>; <span class="cm">/* top right bottom left (clockwise) */</span>
+
+  <span class="cm">/* Margin – same pattern as padding */</span>
+  <span class="prop">margin</span>: <span class="val">0 auto</span>; <span class="cm">/* classic center-align trick for block elements */</span>
+}
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Clockwise Rule – TRBL</strong>
+        When you pass 4 values: <strong>T</strong>op → <strong>R</strong>ight → <strong>B</strong>ottom → <strong>L</strong>eft, going clockwise. Easy to remember!
+      </div>
+    </section>
+
+    <!-- ══ DISPLAY ══ -->
+    <section class="section" id="display">
+      <h2 class="section-title">Display Property <span>🖥️</span></h2>
+      <p class="section-desc">Controls how an element behaves in the page flow — how much space it takes and whether it starts on a new line.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">➡️</div>
+          <div class="card-title">inline</div>
+          <div class="card-body">Takes only the space it needs. Elements sit side by side. Margin/padding top & bottom don't work. e.g. <code class="ptag ptag-cyan">&lt;span&gt;</code> <code class="ptag ptag-cyan">&lt;a&gt;</code></div>
+        </div>
+        <div class="card">
+          <div class="card-icon">⬛</div>
+          <div class="card-title">block</div>
+          <div class="card-body">Takes full available width. Always starts on a new line. e.g. <code class="ptag ptag-orange">&lt;div&gt;</code> <code class="ptag ptag-orange">&lt;p&gt;</code> <code class="ptag ptag-orange">&lt;h1&gt;</code></div>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔲</div>
+          <div class="card-title">inline-block</div>
+          <div class="card-body">Sits inline like text BUT respects width, height, margin, and padding. Best of both worlds.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">👻</div>
+          <div class="card-title">none</div>
+          <div class="card-body">Completely removes element — no space reserved. Different from <code>visibility: hidden</code> which hides but keeps space.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══ LEVEL 3 – POSITION ══ -->
+    <section class="section" id="position">
+      <div class="level-header">
+        <span class="level-badge">Level 3</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">Position Property <span>📍</span></h2>
+      <p class="section-desc">
+        Controls exactly where an element is placed on the page. Works with <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>, and <code>z-index</code>.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Value</th><th>Behavior</th><th>top/left work?</th><th>In page flow?</th></tr>
+          <tr><td><span class="tag">static</span></td><td>Default. Element stays where the browser puts it.</td><td style="color:var(--red)">❌ No</td><td style="color:var(--green)">✅ Yes</td></tr>
+          <tr><td><span class="tag">relative</span></td><td>Moves relative to its own normal position.</td><td style="color:var(--green)">✅ Yes</td><td style="color:var(--green)">✅ Yes</td></tr>
+          <tr><td><span class="tag">absolute</span></td><td>Placed relative to nearest positioned ancestor. Removed from flow.</td><td style="color:var(--green)">✅ Yes</td><td style="color:var(--red)">❌ No</td></tr>
+          <tr><td><span class="tag">fixed</span></td><td>Relative to the browser viewport. Stays put on scroll.</td><td style="color:var(--green)">✅ Yes</td><td style="color:var(--red)">❌ No</td></tr>
+          <tr><td><span class="tag">sticky</span></td><td>Acts like relative until a scroll threshold, then sticks.</td><td style="color:var(--green)">✅ Yes</td><td style="color:var(--green)">✅ Yes</td></tr>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Position Examples</span></div>
+        <div class="code-body">
+<span class="cm">/* Fixed navbar — stays at top even on scroll */</span>
+<span class="sel">nav</span> {
+  <span class="prop">position</span>: <span class="val">fixed</span>;
+  <span class="prop">top</span>: <span class="val">0</span>; <span class="prop">left</span>: <span class="val">0</span>; <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">z-index</span>: <span class="val">1000</span>;  <span class="cm">/* sit above everything */</span>
+}
+
+<span class="cm">/* Classic pattern: absolute inside relative */</span>
+<span class="sel">.parent</span> { <span class="prop">position</span>: <span class="val">relative</span>; }
+<span class="sel">.badge</span> {
+  <span class="prop">position</span>: <span class="val">absolute</span>;
+  <span class="prop">top</span>: <span class="val">8px</span>;
+  <span class="prop">right</span>: <span class="val">8px</span>;   <span class="cm">/* pins to parent's top-right corner */</span>
+}
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 z-index</strong>
+        z-index controls which element sits on top when they overlap. Higher value = appears on top. Only works on positioned elements (not static).
+      </div>
+    </section>
+
+    <!-- ══ UNITS ══ -->
+    <section class="section" id="units">
+      <h2 class="section-title">Units in CSS <span>📏</span></h2>
+      <p class="section-desc">CSS supports both absolute and relative units. Choosing the right unit matters for responsive design.</p>
+
+      <div class="card-grid">
+        <div class="card" style="border-color:rgba(245,166,35,0.3)">
+          <div class="card-icon">🔵</div>
+          <div class="card-title">px – Pixels (Absolute)</div>
+          <div class="card-body">Fixed size regardless of context. 96px = 1 inch. Most commonly used unit.<br><br><code class="ptag ptag-orange">font-size: 16px</code></div>
+        </div>
+        <div class="card" style="border-color:rgba(0,212,255,0.3)">
+          <div class="card-icon">📊</div>
+          <div class="card-title">% – Relative to Parent</div>
+          <div class="card-body">Percentage of the parent element's size. If parent = 500px and child = 50%, child = 250px.<br><br><code class="ptag ptag-cyan">width: 50%</code></div>
+        </div>
+        <div class="card" style="border-color:rgba(34,197,94,0.3)">
+          <div class="card-icon">🔤</div>
+          <div class="card-title">em – Relative to Parent Font</div>
+          <div class="card-body">Relative to the parent's font-size for <code>font-size</code>; relative to the element's own font-size for other properties.<br><br><code class="ptag ptag-green">font-size: 1.5em</code></div>
+        </div>
+        <div class="card" style="border-color:rgba(167,139,250,0.3)">
+          <div class="card-icon">🌐</div>
+          <div class="card-title">rem – Root Em</div>
+          <div class="card-body">Always relative to the root <code>&lt;html&gt;</code> font-size. Consistent and predictable. Preferred for responsive design.<br><br><code class="ptag ptag-purple">font-size: 1rem</code></div>
+        </div>
+        <div class="card">
+          <div class="card-icon">📱</div>
+          <div class="card-title">vh / vw – Viewport Units</div>
+          <div class="card-body">1vh = 1% of viewport height. 1vw = 1% of viewport width. Great for full-screen sections.<br><br><code class="ptag ptag-pink">height: 100vh</code></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══ LEVEL 4 – FLEXBOX ══ -->
+    <section class="section" id="flexbox">
+      <div class="level-header">
+        <span class="level-badge">Level 4</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">Flexbox <span>✨</span></h2>
+      <p class="section-desc">
+        A one-dimensional layout system for arranging items in rows or columns.
+        Apply <code>display: flex</code> to the <strong>parent/container</strong> — the children become flex items automatically.
+      </p>
+
+      <div class="flex-demo">
+        <div class="flex-demo-label" id="flex-label">justify-content: flex-start (default)</div>
+        <div class="flex-container" id="flexDemo">
+          <div class="flex-item">A</div>
+          <div class="flex-item">B</div>
+          <div class="flex-item">C</div>
+        </div>
+        <div class="flex-controls">
+          <button class="flex-btn active" onclick="setFlex('flex-start',this)">flex-start</button>
+          <button class="flex-btn" onclick="setFlex('flex-end',this)">flex-end</button>
+          <button class="flex-btn" onclick="setFlex('center',this)">center</button>
+          <button class="flex-btn" onclick="setFlex('space-between',this)">space-between</button>
+          <button class="flex-btn" onclick="setFlex('space-evenly',this)">space-evenly</button>
+          <button class="flex-btn" onclick="setFlex('space-around',this)">space-around</button>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Flexbox Complete</span></div>
+        <div class="code-body">
+<span class="cm">/* ── Container Properties ── */</span>
+<span class="sel">.container</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+
+  <span class="prop">flex-direction</span>: <span class="val">row</span>;             <span class="cm">/* row | row-reverse | column | column-reverse */</span>
+  <span class="prop">justify-content</span>: <span class="val">space-between</span>;  <span class="cm">/* main axis alignment */</span>
+  <span class="prop">align-items</span>: <span class="val">center</span>;             <span class="cm">/* cross axis alignment */</span>
+  <span class="prop">flex-wrap</span>: <span class="val">wrap</span>;                 <span class="cm">/* wrap items to next line if needed */</span>
+  <span class="prop">align-content</span>: <span class="val">space-between</span>;    <span class="cm">/* space between wrapped rows */</span>
+}
+
+<span class="cm">/* ── Item Properties ── */</span>
+<span class="sel">.item</span> {
+  <span class="prop">flex-grow</span>: <span class="val">1</span>;       <span class="cm">/* grow to fill available space */</span>
+  <span class="prop">flex-shrink</span>: <span class="val">0</span>;     <span class="cm">/* don't shrink below natural size */</span>
+  <span class="prop">align-self</span>: <span class="val">flex-end</span>; <span class="cm">/* override align-items for this one item */</span>
+}
+
+<span class="cm">/* Perfect centering trick */</span>
+<span class="sel">.parent</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">justify-content</span>: <span class="val">center</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+}
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 align-items vs align-self</strong>
+        <code>align-items</code> applies to ALL items in the container. <code>align-self</code> overrides it for ONE specific item — and it has higher priority.
+      </div>
+    </section>
+
+    <!-- ══ MEDIA QUERIES ══ -->
+    <section class="section" id="media">
+      <h2 class="section-title">Media Queries <span>📱</span></h2>
+      <p class="section-desc">
+        Apply different styles for different screen sizes, orientations, or devices.
+        This is what makes websites <strong>responsive</strong>.
+      </p>
+
+      <div class="mq-demo">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Common breakpoints:</p>
+        <div class="mq-bar"><span class="mq-label">&lt; 480px</span><div class="mq-track"><div class="mq-fill" style="width:20%;background:var(--red);">📱 Mobile</div></div></div>
+        <div class="mq-bar"><span class="mq-label">481–768px</span><div class="mq-track"><div class="mq-fill" style="width:45%;background:var(--accent);">📟 Tablet</div></div></div>
+        <div class="mq-bar"><span class="mq-label">769–1024px</span><div class="mq-track"><div class="mq-fill" style="width:70%;background:var(--green);">💻 Laptop</div></div></div>
+        <div class="mq-bar"><span class="mq-label">&gt; 1024px</span><div class="mq-track"><div class="mq-fill" style="width:100%;background:var(--cyan);">🖥️ Desktop</div></div></div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Media Queries</span></div>
+        <div class="code-body">
+<span class="cm">/* Exact width */</span>
+<span class="at">@media</span> (<span class="prop">width</span>: <span class="val">600px</span>) { ... }
+
+<span class="cm">/* 600px and above */</span>
+<span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">600px</span>) { ... }
+
+<span class="cm">/* Between 300px and 600px */</span>
+<span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">300px</span>) and (<span class="prop">max-width</span>: <span class="val">600px</span>) { ... }
+
+<span class="cm">/* Mobile-first approach (recommended) */</span>
+<span class="sel">div</span> { <span class="prop">font-size</span>: <span class="val">14px</span>; }          <span class="cm">/* mobile default */</span>
+<span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">768px</span>) {
+  <span class="sel">div</span> { <span class="prop">font-size</span>: <span class="val">18px</span>; }        <span class="cm">/* tablet and above */</span>
+}
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══ LEVEL 5 – TRANSFORMS & ANIMATIONS ══ -->
+    <section class="section" id="advanced">
+      <div class="level-header">
+        <span class="level-badge">Level 5</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">Transform & Animations <span>🎬</span></h2>
+      <p class="section-desc">Advanced CSS to bring your page to life — transitions for smooth state changes, transforms to reshape elements, and keyframe animations for continuous motion.</p>
+
+      <!-- TRANSFORM -->
+      <h3 class="section-title" style="font-size:1.25rem;">CSS Transform</h3>
+      <p style="color:var(--muted);margin-bottom:20px;font-size:14px;">Hover over each card to see the transform in action.</p>
+
+      <div class="transform-grid">
+        <div class="transform-item"><div class="transform-box r">🔄</div><div class="transform-label">rotate(45deg)</div></div>
+        <div class="transform-item"><div class="transform-box s">⬛</div><div class="transform-label">scale(1.4)</div></div>
+        <div class="transform-item"><div class="transform-box t">➡️</div><div class="transform-label">translateX(22px)</div></div>
+        <div class="transform-item"><div class="transform-box sk">📐</div><div class="transform-label">skew(15deg)</div></div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Transform Functions</span></div>
+        <div class="code-body">
+<span class="sel">.box</span> {
+  <span class="prop">transform</span>: <span class="val">rotate(45deg)</span>;       <span class="cm">/* rotate clockwise */</span>
+  <span class="prop">transform</span>: <span class="val">scale(2)</span>;            <span class="cm">/* double in size */</span>
+  <span class="prop">transform</span>: <span class="val">scale(1, 2)</span>;         <span class="cm">/* scaleX=1, scaleY=2 */</span>
+  <span class="prop">transform</span>: <span class="val">translateX(50px)</span>;    <span class="cm">/* move right */</span>
+  <span class="prop">transform</span>: <span class="val">translate(20px, 30px)</span>;<span class="cm">/* move right + down */</span>
+  <span class="prop">transform</span>: <span class="val">skew(30deg)</span>;         <span class="cm">/* slant */</span>
+  <span class="prop">transform</span>: <span class="val">scale(1.1) rotate(5deg)</span>; <span class="cm">/* combine multiple */</span>
+}
+        </div>
+      </div>
+
+      <!-- TRANSITION -->
+      <h3 class="section-title" style="font-size:1.25rem; margin-top:36px;">Transitions</h3>
+      <p style="color:var(--muted);margin-bottom:16px;font-size:14px;">Hover the button below:</p>
+
+      <div style="padding:24px;background:var(--card);border-radius:12px;border:1px solid var(--border);margin-bottom:20px;">
+        <button style="padding:14px 32px;background:var(--accent);color:#000;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s ease;font-family:'Nunito',sans-serif;"
+          onmouseover="this.style.transform='scale(1.08) translateY(-3px)';this.style.boxShadow='0 12px 30px rgba(245,166,35,0.5)'"
+          onmouseout="this.style.transform='';this.style.boxShadow=''">
+          Hover Me! ✨
+        </button>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Transitions</span></div>
+        <div class="code-body">
+<span class="sel">button</span> {
+  <span class="prop">background</span>: <span class="val">orange</span>;
+  <span class="cm">/* property | duration | timing-function | delay */</span>
+  <span class="prop">transition</span>: <span class="val">all 0.3s ease-in-out 0s</span>;
+  <span class="cm">/* or target a specific property: */</span>
+  <span class="prop">transition</span>: <span class="val">font-size 2s ease-in-out 0.2s</span>;
+}
+<span class="sel">button:hover</span> {
+  <span class="prop">transform</span>: <span class="val">scale(1.1)</span>;
+  <span class="prop">background</span>: <span class="val">darkorange</span>;
+}
+
+<span class="cm">/* Timing functions:
+   ease       → slow → fast → slow (default)
+   linear     → constant speed
+   ease-in    → slow start
+   ease-out   → slow end
+   ease-in-out→ slow start and end */</span>
+        </div>
+      </div>
+
+      <!-- ANIMATIONS -->
+      <h3 class="section-title" style="font-size:1.25rem; margin-top:36px;">CSS Animations (@keyframes)</h3>
+
+      <div class="anim-demo">
+        <div style="text-align:center;"><div class="spin-box"></div><p style="margin-top:12px;font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;">Loader</p></div>
+        <div class="demo-box pulse-box">💗<br>Pulse</div>
+        <div class="demo-box slide-box">➡️<br>Slide</div>
+        <div class="demo-box bounce-box">⬆️<br>Bounce</div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – @keyframes Animations</span></div>
+        <div class="code-body">
+<span class="cm">/* Step 1: Define the animation */</span>
+<span class="at">@keyframes</span> <span class="sel">spin</span> {
+  <span class="kw">from</span> { <span class="prop">transform</span>: <span class="val">rotate(0deg)</span>; }
+  <span class="kw">to</span>   { <span class="prop">transform</span>: <span class="val">rotate(360deg)</span>; }
+}
+
+<span class="cm">/* Use percentages for multiple steps */</span>
+<span class="at">@keyframes</span> <span class="sel">myAnim</span> {
+  <span class="val">0%</span>   { <span class="prop">font-size</span>: <span class="val">20px</span>; }
+  <span class="val">50%</span>  { <span class="prop">font-size</span>: <span class="val">30px</span>; }
+  <span class="val">100%</span> { <span class="prop">font-size</span>: <span class="val">20px</span>; }
+}
+
+<span class="cm">/* Step 2: Apply to element */</span>
+<span class="sel">.loader</span> {
+  <span class="prop">width</span>: <span class="val">60px</span>; <span class="prop">height</span>: <span class="val">60px</span>;
+  <span class="prop">border-radius</span>: <span class="val">50%</span>;
+  <span class="prop">border</span>: <span class="val">4px solid transparent</span>;
+  <span class="prop">border-top-color</span>: <span class="val">orange</span>;
+  <span class="cm">/* name | duration | timing | delay | count | direction */</span>
+  <span class="prop">animation</span>: <span class="val">spin 1s linear infinite</span>;
+}
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══ PRACTICE SETS ══ -->
+    <section class="section" id="practice">
+      <h2 class="section-title">Practice Sets <span>🚀</span></h2>
+      <p class="section-desc">All 8 practice sets from Apna College notes. Build these to solidify your understanding.</p>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 1 – Basics</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Create a div with id <code>"box"</code>, add some text, and set its background color to blue.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Create h1, h2, h3 headings. Give all three the class <code>"heading"</code> and set the color to red.</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Create a button and set its background: green via external CSS, blue via &lt;style&gt; tag, pink via inline. Observe which wins.</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 2 – Text Properties</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Create a heading that is centered on the page with text capitalized by default using CSS.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Set the font-family of all document content to "Times New Roman".</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Nest one div inside another. Set outer div text to 25px and inner div text to 10px.</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 3 – Box Model</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Create a 100×100px div. Set background green and border-radius to 50% to create a circle.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Build an Amazon-style navbar: "amazon.in" in yellow, anchor tag links (Account, My Cart, Contact Us), search input + button. Background #0f1111, height 60px, text 25px.</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 4 – Layout</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Create a webpage with a header (include the navbar), a footer, and a content area with 3 divs (100×100px each).</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Add borders to all the divs.</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Give each div a different background color with opacity 0.5 (use rgba).</div></div>
+        <div class="practice-item"><div class="practice-num">4</div><div>Give the content area an appropriate height.</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 5 – Position</div>
+        <div class="practice-item"><div class="practice-num">Q</div><div>Using HTML: two paragraphs (lorem×5) and a div ("Love Nature") between them.<br>
+          • Give the div a height, width and background image.<br>
+          • Position it at the right edge of the page — must not move on scroll.<br>
+          • Use z-index to keep it on top of everything.
+        </div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 6 – Flexbox</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Create a navbar with 4 anchor tags inside list items. Use flexbox to place them equally spaced in a single row.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Use flexbox to perfectly center one div (both horizontally and vertically) inside another div.</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Which has higher priority — <code>align-items</code> or <code>align-self</code>? (Answer: <strong>align-self</strong>!)</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 7 – Media Queries</div>
+        <div class="practice-item"><div class="practice-num">Q</div><div>Add media queries to a div so its background color changes:<br>
+          <span style="color:var(--green)">■</span> Green — viewport &lt; 300px &nbsp;
+          <span style="color:var(--pink)">■</span> Pink — 300–400px &nbsp;
+          <span style="color:var(--red)">■</span> Red — 400–600px &nbsp;
+          <span style="color:var(--cyan)">■</span> Blue — &gt; 600px
+        </div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 8 – CSS Loader</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Create a div with circular shape and a thick colored border on one side (top/bottom/left/right), transparent on the rest.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Create a @keyframes animation that rotates from 0deg to 360deg.</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Apply the animation to the loader div with infinite iteration count. Done — you have a spinner! 🎉</div></div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════════════════
+         ⭐ ADVANCED CSS USED IN THIS WEBSITE – SUMMARY
+    ══════════════════════════════════════════════════ -->
+    <section class="section" id="advanced-summary">
+      <div class="adv-section">
+        <div class="adv-header">
+          <span class="adv-badge">⭐ Bonus</span>
+          <div class="level-line" style="background:rgba(167,139,250,0.25)"></div>
+        </div>
+
+        <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2rem); color:var(--purple);">
+          Advanced CSS Used in This Website
+        </h2>
+        <p class="section-desc">
+          This website itself uses many CSS techniques beyond what is covered in the notes.
+          Below is a complete summary of every advanced technique used — what it is, why it is useful, and exactly where it appears on this page.
+        </p>
+
+        <!-- ── 1. CSS CUSTOM PROPERTIES ── -->
+        <div class="adv-grid">
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🎨</span>
+              <span class="adv-card-title" style="color:var(--purple)">CSS Custom Properties (Variables)</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-purple">--bg</span>
+              <span class="prop-chip chip-purple">--accent</span>
+              <span class="prop-chip chip-purple">--cyan</span>
+              <span class="prop-chip chip-purple">var()</span>
+            </div>
+            <div class="adv-card-body">
+              Defined with <code>--name: value</code> inside <code>:root { }</code> and used anywhere with <code>var(--name)</code>.
+              Changing one variable updates the entire site instantly — the foundation of theming.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> All colors, backgrounds, and borders on this entire page use custom properties — <code>var(--accent)</code>, <code>var(--bg)</code>, <code>var(--border)</code>, etc.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🌈</span>
+              <span class="adv-card-title" style="color:var(--cyan)">Radial & Linear Gradients</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-cyan">radial-gradient()</span>
+              <span class="prop-chip chip-cyan">linear-gradient()</span>
+              <span class="prop-chip chip-cyan">background</span>
+            </div>
+            <div class="adv-card-body">
+              CSS gradients create smooth color transitions without any images. <code>radial-gradient</code> radiates from a center point; <code>linear-gradient</code> transitions along a straight line.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> Hero section background uses two overlapping radial gradients (orange glow + cyan glow) to create the atmospheric lighting effect.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">📐</span>
+              <span class="adv-card-title" style="color:var(--green)">CSS Grid Layout</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-green">display: grid</span>
+              <span class="prop-chip chip-green">grid-template-columns</span>
+              <span class="prop-chip chip-green">repeat()</span>
+              <span class="prop-chip chip-green">auto-fit</span>
+              <span class="prop-chip chip-green">minmax()</span>
+            </div>
+            <div class="adv-card-body">
+              CSS Grid is a two-dimensional layout system. <code>auto-fit</code> with <code>minmax()</code> creates fully responsive grids without any media queries — columns automatically reflow as the viewport shrinks.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> <code>.page-layout</code> (sidebar + main), <code>.card-grid</code>, <code>.adv-grid</code> — all built with CSS Grid.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">📏</span>
+              <span class="adv-card-title" style="color:var(--accent)">clamp() Function</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-orange">clamp(min, preferred, max)</span>
+            </div>
+            <div class="adv-card-body">
+              <code>clamp()</code> sets a value that scales fluidly between a minimum and maximum. Perfect for responsive typography without breakpoints — the browser calculates the ideal value automatically.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> <code>font-size: clamp(2.6rem, 7vw, 5.2rem)</code> on the hero heading — it scales smoothly on all screen sizes.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🔁</span>
+              <span class="adv-card-title" style="color:var(--pink)">Repeating Gradients (Grid Pattern)</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-pink">repeating-linear-gradient()</span>
+            </div>
+            <div class="adv-card-body">
+              Creates a repeating tile pattern using gradients — no image files needed. Combining horizontal and vertical repeating gradients produces a CSS grid/dot overlay.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> The subtle grid dot pattern in the hero section background is made entirely with two overlapping <code>repeating-linear-gradient()</code> calls.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🎭</span>
+              <span class="adv-card-title" style="color:var(--purple)">Pseudo-elements (::before / ::after)</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-purple">::before</span>
+              <span class="prop-chip chip-purple">::after</span>
+              <span class="prop-chip chip-purple">content: ''</span>
+            </div>
+            <div class="adv-card-body">
+              Pseudo-elements insert virtual elements into the DOM via CSS alone — no extra HTML needed. They must have <code>content</code> set (even empty) and are often positioned absolutely for decorative effects.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> Grid overlay in hero (<code>.hero::before</code>), labels in the box model diagram (<code>.bm-margin::before</code>), scroll hint arrow (<code>.scroll-hint::after</code>), decorative glow in advanced summary card (<code>.adv-section::before</code>).
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🖱️</span>
+              <span class="adv-card-title" style="color:var(--cyan)">Pseudo-classes (:hover, :nth-child)</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-cyan">:hover</span>
+              <span class="prop-chip chip-cyan">:nth-child()</span>
+              <span class="prop-chip chip-cyan">:hover .child</span>
+            </div>
+            <div class="adv-card-body">
+              Pseudo-classes apply styles based on element state or position without JavaScript. <code>:hover</code> triggers on mouse-over; <code>:nth-child(n)</code> targets a specific child in a list.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> All card hover lifts, color swatch hover rotations, flex item colors (B = cyan, C = green via <code>:nth-child</code>), sidebar nav hover/active states, transform card hover effects, nav dot color changes.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🔢</span>
+              <span class="adv-card-title" style="color:var(--green)">CSS Animations (@keyframes)</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-green">@keyframes</span>
+              <span class="prop-chip chip-green">animation</span>
+              <span class="prop-chip chip-green">animation-delay</span>
+            </div>
+            <div class="adv-card-body">
+              @keyframes define a named animation with states at various percentages (0%–100%). The <code>animation</code> shorthand attaches it to an element with duration, timing, delay, and iteration count.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> 5 named animations: <code>spin</code> (loader), <code>pulse</code>, <code>slideInOut</code>, <code>bounceUp</code>, <code>fadeDown</code> (hero elements staggered with animation-delay), <code>bounce</code> (scroll hint arrow).
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">📌</span>
+              <span class="adv-card-title" style="color:var(--accent)">position: sticky</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-orange">position: sticky</span>
+              <span class="prop-chip chip-orange">top: 0</span>
+              <span class="prop-chip chip-orange">height: 100vh</span>
+            </div>
+            <div class="adv-card-body">
+              A sticky element scrolls normally until it reaches a threshold, then "sticks" in place. Here it keeps the sidebar fixed while the main content scrolls.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> The left sidebar uses <code>position: sticky; top: 0; height: 100vh</code> to stay visible as you scroll through all chapters.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🌊</span>
+              <span class="adv-card-title" style="color:var(--pink)">CSS Transitions</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-pink">transition</span>
+              <span class="prop-chip chip-pink">ease / linear</span>
+              <span class="prop-chip chip-pink">transform</span>
+            </div>
+            <div class="adv-card-body">
+              Transitions animate property changes between states (e.g. default → hover) smoothly. The shorthand order is: property | duration | timing-function | delay.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> All card hover lifts, button hover scale/shadow, sidebar nav item highlights, color swatch rotations, nav dot color changes, flex demo container layout change, transform demo boxes — all use CSS transitions.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">↕️</span>
+              <span class="adv-card-title" style="color:var(--purple)">overflow & Custom Scrollbar</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-purple">overflow: auto</span>
+              <span class="prop-chip chip-purple">overflow-x: auto</span>
+              <span class="prop-chip chip-purple">::-webkit-scrollbar</span>
+            </div>
+            <div class="adv-card-body">
+              <code>overflow</code> controls what happens when content exceeds its container. The <code>::-webkit-scrollbar</code> pseudo-element family lets you fully style the scrollbar in Chrome/Edge/Safari.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> The sidebar uses <code>overflow-y: auto</code>. The global orange scrollbar (<code>::-webkit-scrollbar-thumb</code>) and the horizontal code block scrolls (<code>overflow-x: auto</code>) also use these.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">📦</span>
+              <span class="adv-card-title" style="color:var(--cyan)">box-shadow & rgba transparency</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-cyan">box-shadow</span>
+              <span class="prop-chip chip-cyan">rgba()</span>
+              <span class="prop-chip chip-cyan">inset</span>
+            </div>
+            <div class="adv-card-body">
+              <code>box-shadow</code> adds drop shadows (or inner glow with <code>inset</code>). Combining with <code>rgba()</code> alpha values creates soft, realistic depth without hard edges.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> Card hover states, button hover glow, color swatches, hero button primary shadow — all use <code>box-shadow</code> with <code>rgba()</code> transparency for soft effects.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">📱</span>
+              <span class="adv-card-title" style="color:var(--green)">Media Queries (Responsive Layout)</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-green">@media (max-width: 900px)</span>
+              <span class="prop-chip chip-green">@media (max-width: 600px)</span>
+            </div>
+            <div class="adv-card-body">
+              This website adapts to different screen sizes using two breakpoints. The sidebar is hidden on mobile, grid columns collapse, and padding reduces — all controlled purely with CSS media queries.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> Below 900px → sidebar hidden, single-column layout. Below 600px → all card grids collapse to 1 column.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🔤</span>
+              <span class="adv-card-title" style="color:var(--accent)">Google Fonts (@import / link)</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-orange">Baloo 2</span>
+              <span class="prop-chip chip-orange">JetBrains Mono</span>
+              <span class="prop-chip chip-orange">Nunito</span>
+            </div>
+            <div class="adv-card-body">
+              External web fonts loaded via a <code>&lt;link&gt;</code> tag to Google Fonts CDN. Each font serves a specific role — display, code, and body — making the typography system cohesive.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> <strong>Baloo 2</strong> → all headings and level badges. <strong>JetBrains Mono</strong> → all code blocks, tags, and property chips. <strong>Nunito</strong> → all body text and UI elements.
+            </div>
+          </div>
+
+          <div class="adv-card">
+            <div class="adv-card-head">
+              <span class="adv-card-icon">🖥️</span>
+              <span class="adv-card-title" style="color:var(--red)">Inline JS for Interactive Demos</span>
+            </div>
+            <div class="prop-row">
+              <span class="prop-chip chip-red">element.style</span>
+              <span class="prop-chip chip-red">classList</span>
+              <span class="prop-chip chip-red">scroll event</span>
+            </div>
+            <div class="adv-card-body">
+              Not CSS itself, but closely linked — JavaScript is used to dynamically change CSS property values and class names, bridging the gap between CSS and interactivity.
+              <br><br>
+              <strong style="color:var(--text)">Used here:</strong> Flexbox live demo (buttons set <code>justifyContent</code>), sidebar active state highlight on scroll, hover button inline <code>style</code> changes.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- QUICK LOOKUP TABLE -->
+        <h3 style="font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:800;color:var(--purple);margin-top:36px;margin-bottom:16px;">Quick Lookup — Where is Each Technique Used?</h3>
+
+        <div class="table-wrap">
+          <table class="site-adv-table">
+            <tr><th>Technique</th><th>Property / Rule</th><th>Location on Page</th></tr>
+            <tr><td><strong>CSS Variables</strong></td><td><span class="where-tag">:root { --name: value }</span></td><td>Every color, background, border throughout the page</td></tr>
+            <tr><td><strong>Radial Gradient</strong></td><td><span class="where-tag">radial-gradient()</span></td><td>Hero section background glow effects</td></tr>
+            <tr><td><strong>Repeating Gradient</strong></td><td><span class="where-tag">repeating-linear-gradient()</span></td><td>Grid dot overlay in hero section</td></tr>
+            <tr><td><strong>CSS Grid</strong></td><td><span class="where-tag">display: grid</span></td><td>Page layout (sidebar + content), card grids, advanced grid</td></tr>
+            <tr><td><strong>auto-fit + minmax()</strong></td><td><span class="where-tag">repeat(auto-fit, minmax())</span></td><td>All responsive card grids — no media query needed</td></tr>
+            <tr><td><strong>clamp()</strong></td><td><span class="where-tag">font-size: clamp()</span></td><td>Hero H1, section titles — fluid responsive font sizing</td></tr>
+            <tr><td><strong>::before / ::after</strong></td><td><span class="where-tag">pseudo-elements</span></td><td>Hero overlay, box model labels, scroll arrow, adv-section glow</td></tr>
+            <tr><td><strong>:hover / :nth-child</strong></td><td><span class="where-tag">pseudo-classes</span></td><td>Cards, swatches, nav items, flex item colors, transform boxes</td></tr>
+            <tr><td><strong>@keyframes + animation</strong></td><td><span class="where-tag">animation: name dur timing</span></td><td>Loader spinner, pulse, slide, bounce, hero fade-in, scroll arrow</td></tr>
+            <tr><td><strong>animation-delay</strong></td><td><span class="where-tag">animation-delay: 0.Xs</span></td><td>Hero elements staggered entry (badge → h1 → subtitle → buttons)</td></tr>
+            <tr><td><strong>CSS Transitions</strong></td><td><span class="where-tag">transition: all 0.2s ease</span></td><td>All hover interactions across the entire page</td></tr>
+            <tr><td><strong>position: sticky</strong></td><td><span class="where-tag">position: sticky; top: 0</span></td><td>Left sidebar navigation</td></tr>
+            <tr><td><strong>box-shadow + rgba()</strong></td><td><span class="where-tag">box-shadow: 0 Xpx Ypx rgba()</span></td><td>Card hovers, button glows, color swatches depth</td></tr>
+            <tr><td><strong>Custom Scrollbar</strong></td><td><span class="where-tag">::-webkit-scrollbar</span></td><td>Orange accent scrollbar on the whole page</td></tr>
+            <tr><td><strong>overflow</strong></td><td><span class="where-tag">overflow-y / overflow-x: auto</span></td><td>Sidebar scroll, code block horizontal scroll</td></tr>
+            <tr><td><strong>Google Fonts</strong></td><td><span class="where-tag">&lt;link&gt; Google Fonts CDN</span></td><td>Baloo 2 (headings), JetBrains Mono (code), Nunito (body)</td></tr>
+            <tr><td><strong>Media Queries</strong></td><td><span class="where-tag">@media (max-width: 900px)</span></td><td>Mobile: hides sidebar, collapses grid to 1 column</td></tr>
+            <tr><td><strong>CSS Transform</strong></td><td><span class="where-tag">transform: rotate/scale/translate</span></td><td>Transform demo cards, button hover, color swatch hover rotate</td></tr>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Built with pure <span>HTML & CSS</span> — no frameworks 🎓<br>
+  <span style="color:var(--muted);font-size:12px;">Apna College CSS Notes — Level 1 to Level 5 + Advanced Techniques</span>
+</footer>
+
+<script>
+  // Flexbox interactive demo
+  function setFlex(value, btn) {
+    document.getElementById('flexDemo').style.justifyContent = value;
+    document.getElementById('flex-label').textContent = 'justify-content: ' + value;
+    document.querySelectorAll('.flex-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // Sidebar active highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 220) current = s.id; });
+    navItems.forEach(n => {
+      n.classList.remove('active');
+      if (n.getAttribute('href') === '#' + current) n.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

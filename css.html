@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Sikho – Apna College Style</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0f1a;
+    --card: #131929;
+    --card2: #1a2235;
+    --border: #1e2d45;
+    --accent: #f5a623;
+    --cyan: #00d4ff;
+    --green: #22c55e;
+    --pink: #f472b6;
+    --purple: #a78bfa;
+    --red: #f87171;
+    --text: #e2e8f0;
+    --muted: #8899aa;
+    --code-bg: #0d1117;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(245,166,35,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(0,212,255,0.10) 0%, transparent 70%),
+      var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0px, transparent 1px, transparent 60px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0px, transparent 1px, transparent 60px);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.4);
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    animation: fadeDown 0.8s ease 0.1s both;
+  }
+
+  .hero h1 span.hl { color: var(--accent); }
+  .hero h1 span.hl2 { color: var(--cyan); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin: 20px auto 36px;
+    animation: fadeDown 0.8s ease 0.2s both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeDown 0.8s ease 0.3s both;
+  }
+
+  .btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    box-shadow: 0 4px 20px rgba(245,166,35,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,166,35,0.5); }
+  .btn-outline {
+    border: 2px solid var(--border);
+    color: var(--text);
+    background: transparent;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint::after {
+    content: '↓';
+    font-size: 20px;
+    color: var(--accent);
+  }
+
+  /* ── LEVELS SIDEBAR + MAIN ── */
+  .page-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 32px 20px;
+    border-right: 1px solid var(--border);
+    background: var(--card);
+  }
+
+  .sidebar h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .nav-item:hover, .nav-item.active { background: rgba(245,166,35,0.12); color: var(--accent); }
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .nav-item:hover .nav-dot, .nav-item.active .nav-dot { background: var(--accent); }
+
+  /* ── CONTENT ── */
+  .content { padding: 48px 40px; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 80px; }
+
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .level-badge {
+    font-family: 'Baloo 2', cursive;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--accent);
+    padding: 4px 14px;
+    border-radius: 50px;
+  }
+
+  .level-line { flex: 1; height: 1px; background: var(--border); }
+
+  .section-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .section-title span { color: var(--accent); }
+
+  .section-desc {
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 32px;
+    font-size: 15px;
+  }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(245,166,35,0.3);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card-title { font-family: 'Baloo 2', cursive; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .card-body { font-size: 14px; color: var(--muted); }
+  .card-body strong { color: var(--cyan); }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--border);
+  }
+  .code-dots { display: flex; gap: 6px; }
+  .code-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dot:nth-child(1) { background: #f87171; }
+  .code-dot:nth-child(2) { background: #facc15; }
+  .code-dot:nth-child(3) { background: #4ade80; }
+  .code-lang { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .code-body { padding: 20px; overflow-x: auto; line-height: 1.8; }
+  .kw { color: #79c0ff; }   /* keyword */
+  .sel { color: #56d364; }  /* selector */
+  .prop { color: #ffa657; } /* property */
+  .val { color: #f0883e; }  /* value */
+  .cm { color: #8b949e; font-style: italic; } /* comment */
+  .at { color: #d2a8ff; }   /* at-rule */
+  .str { color: #a5d6ff; }  /* string */
+
+  /* ── HINGLISH TIPS ── */
+  .tip-box {
+    background: rgba(0,212,255,0.06);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-left: 4px solid var(--cyan);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .tip-box strong { color: var(--cyan); display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+
+  .warn-box {
+    background: rgba(245,166,35,0.06);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .warn-box strong { color: var(--accent); display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── SELECTOR TABLE ── */
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    background: var(--card2);
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    color: var(--accent);
+    border-bottom: 2px solid var(--border);
+  }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .tag { font-family: 'JetBrains Mono', monospace; background: rgba(0,212,255,0.1); color: var(--cyan); padding: 2px 8px; border-radius: 4px; font-size: 13px; }
+  .eg { color: var(--muted); font-size: 13px; }
+
+  /* ── BOX MODEL VISUAL ── */
+  .box-model-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: var(--card);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  .bm-margin {
+    background: rgba(244,114,182,0.12);
+    border: 2px dashed rgba(244,114,182,0.5);
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+  }
+  .bm-margin::before { content: 'Margin'; position: absolute; top: 4px; left: 8px; font-size: 11px; color: var(--pink); font-weight: 700; letter-spacing: 1px; }
+
+  .bm-border {
+    background: rgba(167,139,250,0.12);
+    border: 3px solid rgba(167,139,250,0.6);
+    padding: 18px;
+    border-radius: 4px;
+    position: relative;
+  }
+  .bm-border::before { content: 'Border'; position: absolute; top: 4px; left: 8px; font-size: 11px; color: var(--purple); font-weight: 700; letter-spacing: 1px; }
+
+  .bm-padding {
+    background: rgba(34,197,94,0.1);
+    border: 2px dashed rgba(34,197,94,0.4);
+    padding: 16px;
+    position: relative;
+  }
+  .bm-padding::before { content: 'Padding'; position: absolute; top: 4px; left: 8px; font-size: 11px; color: var(--green); font-weight: 700; letter-spacing: 1px; }
+
+  .bm-content {
+    background: rgba(0,212,255,0.15);
+    border: 2px solid rgba(0,212,255,0.4);
+    padding: 20px 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--cyan);
+    font-weight: 600;
+    border-radius: 2px;
+  }
+
+  /* ── FLEX DEMO ── */
+  .flex-demo {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .flex-demo-label { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
+  .flex-container {
+    display: flex;
+    gap: 8px;
+    background: rgba(0,0,0,0.3);
+    padding: 16px;
+    border-radius: 8px;
+    min-height: 80px;
+    flex-wrap: wrap;
+    align-items: center;
+    transition: all 0.3s;
+  }
+  .flex-item {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    min-width: 50px;
+    text-align: center;
+  }
+  .flex-item:nth-child(2) { background: var(--cyan); }
+  .flex-item:nth-child(3) { background: var(--green); }
+
+  .flex-controls { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .flex-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--card2);
+    color: var(--text);
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .flex-btn:hover, .flex-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(245,166,35,0.08); }
+
+  /* ── COLOR SWATCHES ── */
+  .color-grid { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+  .swatch {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 8px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: rgba(0,0,0,0.7);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+    cursor: default;
+  }
+  .swatch:hover { transform: scale(1.1) rotate(-2deg); }
+
+  /* ── POSITION DEMO ── */
+  .position-demo {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .pos-container {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 20px;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pos-box {
+    width: 80px; height: 50px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── PRACTICE CARD ── */
+  .practice-card {
+    background: linear-gradient(135deg, rgba(245,166,35,0.08), rgba(0,212,255,0.05));
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 14px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .practice-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .practice-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  .practice-num {
+    background: var(--accent);
+    color: #000;
+    font-weight: 800;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── ANIMATION DEMO ── */
+  .anim-demo {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 20px 0;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .demo-box {
+    width: 80px; height: 80px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+  }
+
+  .spin-box {
+    background: rgba(245,166,35,0.2);
+    border: 3px solid transparent;
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    width: 64px; height: 64px;
+    animation: spin 1s linear infinite;
+  }
+
+  .pulse-box {
+    background: rgba(244,114,182,0.2);
+    border: 2px solid var(--pink);
+    animation: pulse 1.5s ease-in-out infinite;
+    color: var(--pink);
+    font-size: 10px;
+  }
+
+  .slide-box {
+    background: rgba(0,212,255,0.2);
+    border: 2px solid var(--cyan);
+    animation: slideInOut 2s ease-in-out infinite;
+    color: var(--cyan);
+    font-size: 10px;
+  }
+
+  .bounce-box {
+    background: rgba(34,197,94,0.2);
+    border: 2px solid var(--green);
+    animation: bounceUp 1s ease-in-out infinite;
+    color: var(--green);
+    font-size: 10px;
+    border-radius: 50%;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.7; } }
+  @keyframes slideInOut { 0%,100% { transform: translateX(0); } 50% { transform: translateX(30px); } }
+  @keyframes bounceUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+
+  /* ── MEDIA QUERY DEMO ── */
+  .mq-demo {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  .mq-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+  }
+  .mq-label { width: 120px; color: var(--muted); font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+  .mq-track { flex: 1; height: 28px; border-radius: 6px; position: relative; overflow: hidden; }
+  .mq-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: #000; }
+
+  /* ── TRANSFORM DEMO ── */
+  .transform-grid { display: flex; gap: 16px; flex-wrap: wrap; margin: 20px 0; }
+  .transform-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+  }
+  .transform-box {
+    width: 60px; height: 60px;
+    background: rgba(245,166,35,0.2);
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    margin: 0 auto 12px;
+    transition: transform 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .transform-item:hover .transform-box.r { transform: rotate(45deg); }
+  .transform-item:hover .transform-box.s { transform: scale(1.4); }
+  .transform-item:hover .transform-box.t { transform: translateX(20px); }
+  .transform-item:hover .transform-box.sk { transform: skew(15deg); }
+  .transform-label { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .page-layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .content { padding: 32px 20px; }
+  }
+  @media (max-width: 600px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .box-model-visual { padding: 20px; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+  footer span { color: var(--accent); }
+
+  /* ── PROPERTY TAG ── */
+  .ptag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 2px;
+  }
+  .ptag-cyan { background: rgba(0,212,255,0.12); color: var(--cyan); border: 1px solid rgba(0,212,255,0.25); }
+  .ptag-orange { background: rgba(245,166,35,0.12); color: var(--accent); border: 1px solid rgba(245,166,35,0.25); }
+  .ptag-green { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .ptag-pink { background: rgba(244,114,182,0.12); color: var(--pink); border: 1px solid rgba(244,114,182,0.25); }
+  .ptag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+
+  /* divider */
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ HERO ═══════ -->
+<section class="hero" id="top">
+  <div class="badge">🎓 Apna College Style</div>
+  <h1>
+    <span class="hl">CSS</span> Seekho<br>
+    <span class="hl2">Hinglish</span> Mein 🚀
+  </h1>
+  <p class="hero-sub">
+    CSS kya hai, kaise likhte hain, Box Model, Flexbox, Position, Animations — sab kuch
+    simple Hinglish mein explained. Ek baar padho, phir bhool nahi paaoge! 💪
+  </p>
+  <div class="hero-btns">
+    <a href="#basics" class="btn btn-primary">Padhna Shuru Karo ↓</a>
+    <a href="#practice" class="btn btn-outline">Practice Sets 🎯</a>
+  </div>
+  <div class="scroll-hint">Neeche Scroll Karo</div>
+</section>
+
+<!-- ═══════════════════════════════════════ LAYOUT ═══════ -->
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h3>Chapters</h3>
+    <a class="nav-item" href="#basics"><span class="nav-dot"></span>Level 1 – CSS Basics</a>
+    <a class="nav-item" href="#colors"><span class="nav-dot"></span>Colors</a>
+    <a class="nav-item" href="#selectors"><span class="nav-dot"></span>Selectors</a>
+    <a class="nav-item" href="#text"><span class="nav-dot"></span>Text Properties</a>
+    <a class="nav-item" href="#boxmodel"><span class="nav-dot"></span>Level 2 – Box Model</a>
+    <a class="nav-item" href="#display"><span class="nav-dot"></span>Display Property</a>
+    <a class="nav-item" href="#position"><span class="nav-dot"></span>Level 3 – Position</a>
+    <a class="nav-item" href="#units"><span class="nav-dot"></span>Units (px, em, rem)</a>
+    <a class="nav-item" href="#flexbox"><span class="nav-dot"></span>Level 4 – Flexbox</a>
+    <a class="nav-item" href="#media"><span class="nav-dot"></span>Media Queries</a>
+    <a class="nav-item" href="#advanced"><span class="nav-dot"></span>Level 5 – Advanced</a>
+    <a class="nav-item" href="#practice"><span class="nav-dot"></span>Practice Sets</a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- ══════════ LEVEL 1 – BASICS ══════════ -->
+    <section class="section" id="basics">
+      <div class="level-header">
+        <span class="level-badge">Level 1</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">CSS Kya Hota Hai? <span>🎨</span></h2>
+      <p class="section-desc">
+        CSS ka full form hai <strong>Cascading Style Sheet</strong>. Yeh ek <em>styling language</em> hai — programming language nahi!
+        Iska kaam hota hai HTML ke content ko <strong>sundar banana</strong>. Jaise ghar ka structure HTML se banta hai, lekin furniture aur paint CSS se lagta hai!
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">🏗️</div>
+          <div class="card-title">HTML – Structure</div>
+          <div class="card-body">Yeh page ka <strong>skeleton</strong> banata hai. Jaise ek khaali kamra — walls, doors, windows.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <div class="card-title">CSS – Style</div>
+          <div class="card-body">Yeh page ko <strong>sundar</strong> banata hai. Rang, font, spacing — sab CSS karta hai.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <div class="card-title">JS – Logic</div>
+          <div class="card-body">Yeh page ko <strong>interactive</strong> banata hai. Button click pe kuch ho — yeh JS ka kaam hai.</div>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="font-size:1.3rem; margin-top:36px;">Basic Syntax</h3>
+      <p class="section-desc">CSS likhne ka ek simple rule hota hai:</p>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS</span></div>
+        <div class="code-body">
+<span class="cm">/* selector { property: value; } — yeh basic format hai */</span>
+
+<span class="sel">h1</span> {
+  <span class="prop">color</span>: <span class="val">red</span>;       <span class="cm">/* text ka rang */</span>
+  <span class="prop">font-size</span>: <span class="val">24px</span>;  <span class="cm">/* text kitna bada */</span>
+}
+
+<span class="cm">/* Selector → kaun se element pe style lagnaa chahiye
+   Property → kya change karna hai
+   Value    → kitna ya kaise change karna hai
+   Semicolon → ek property khatam, nayi shuru */</span>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Yaad Rakho</strong>
+        Semicolon (;) bohot zaroori hai! Har property ke baad lagaao. Bhool gaye toh next property kaam nahi karega.
+      </div>
+
+      <h3 class="section-title" style="font-size:1.3rem; margin-top:36px;">CSS Include Karne Ke 3 Tarike</h3>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">1️⃣</div>
+          <div class="card-title">Inline Style</div>
+          <div class="card-body">
+            Element ke andar seedha likhte hain.<br>
+            <code class="ptag ptag-cyan">&lt;h1 style="color:red"&gt;</code>
+            <br><br>❌ Recommended nahi — every element pe baar baar likhna padta hai.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">2️⃣</div>
+          <div class="card-title">&lt;style&gt; Tag</div>
+          <div class="card-body">
+            HTML file ke &lt;head&gt; mein <code class="ptag ptag-orange">&lt;style&gt;</code> tag ke andar CSS likhte hain.<br><br>
+            ✅ Chhote projects ke liye theek hai.
+          </div>
+        </div>
+        <div class="card" style="border-color: rgba(34,197,94,0.3);">
+          <div class="card-icon">3️⃣</div>
+          <div class="card-title">External Stylesheet ⭐</div>
+          <div class="card-body">
+            Alag <code class="ptag ptag-green">.css</code> file banao aur HTML se link karo.<br><br>
+            ✅ <strong>Best way!</strong> Code clean rehta hai, ek jagah se sab control hota hai.
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">HTML – External Stylesheet Link</span></div>
+        <div class="code-body">
+<span class="cm">&lt;!-- HTML ke head mein yeh likhte hain --&gt;</span>
+<span class="kw">&lt;link</span> <span class="prop">rel</span>=<span class="str">"stylesheet"</span> <span class="prop">href</span>=<span class="str">"style.css"</span><span class="kw">&gt;</span>
+
+<span class="cm">/* ⚠️ Priority order:
+   Inline &gt; &lt;style&gt; tag &gt; External
+   Matlab inline style sabse zyada powerful hoti hai */</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ COLORS ══════════ -->
+    <section class="section" id="colors">
+      <h2 class="section-title">Colors – Rang Kaise Dete Hain 🎨</h2>
+      <p class="section-desc">CSS mein rang dene ke 3 main tarike hain. Sabse zyada use hote hain RGB aur Hex.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">🔤</div>
+          <div class="card-title">Named Colors</div>
+          <div class="card-body">
+            <code class="ptag ptag-cyan">color: red;</code><br>
+            <code class="ptag ptag-cyan">color: blue;</code><br>
+            <code class="ptag ptag-cyan">color: pink;</code><br><br>
+            Simple naam se likhte hain. 147 named colors hain CSS mein.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎛️</div>
+          <div class="card-title">RGB</div>
+          <div class="card-body">
+            <code class="ptag ptag-orange">color: rgb(255, 0, 0);</code> — Red<br>
+            <code class="ptag ptag-orange">color: rgb(0, 255, 0);</code> — Green<br><br>
+            3 values: Red, Green, Blue. Har ek 0–255 ke beech.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">#️⃣</div>
+          <div class="card-title">Hex (Hexadecimal)</div>
+          <div class="card-body">
+            <code class="ptag ptag-green">color: #ff0000;</code> — Red<br>
+            <code class="ptag ptag-green">color: #00ff00;</code> — Green<br><br>
+            # ke baad 6 characters. Designers sabse zyada yeh use karte hain!
+          </div>
+        </div>
+      </div>
+
+      <div class="color-grid">
+        <div class="swatch" style="background:#ff6b6b; color:rgba(0,0,0,0.8);">#ff6b6b</div>
+        <div class="swatch" style="background:#ffd93d; color:rgba(0,0,0,0.8);">#ffd93d</div>
+        <div class="swatch" style="background:#6bcb77; color:rgba(0,0,0,0.8);">#6bcb77</div>
+        <div class="swatch" style="background:#4d96ff; color:rgba(0,0,0,0.8);">#4d96ff</div>
+        <div class="swatch" style="background:#c77dff; color:rgba(0,0,0,0.8);">#c77dff</div>
+        <div class="swatch" style="background:#ff9f1c; color:rgba(0,0,0,0.8);">#ff9f1c</div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Pro Tip</strong>
+        Rang sochne ki zaroorat nahi! Google pe "color picker" search karo ya online tools use karo. Wahan se directly hex/rgb code copy karo. 🎨
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – RGBA (Opacity bhi)</span></div>
+        <div class="code-body">
+<span class="cm">/* RGBA mein 4th value opacity hai (0 = transparent, 1 = solid) */</span>
+<span class="sel">div</span> {
+  <span class="prop">color</span>: <span class="val">rgba(255, 0, 0, 0.5)</span>;   <span class="cm">/* 50% transparent red */</span>
+  <span class="prop">color</span>: <span class="val">rgba(255, 0, 0, 1)</span>;   <span class="cm">/* full solid red */</span>
+  <span class="prop">background-color</span>: <span class="val">blue</span>;         <span class="cm">/* background color */</span>
+}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ SELECTORS ══════════ -->
+    <section class="section" id="selectors">
+      <h2 class="section-title">Selectors – Kisko Style Dena Hai? 🎯</h2>
+      <p class="section-desc">Selector batata hai ki kaunse HTML element ko style dena hai. Yeh CSS ka pehla part hota hai.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Selector Type</th>
+            <th>Syntax</th>
+            <th>Matlab</th>
+            <th>Example Use</th>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent)">Universal</strong></td>
+            <td><span class="tag">* { }</span></td>
+            <td>Page pe har ek element ko select karo</td>
+            <td class="eg">* { margin: 0; padding: 0; }</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--cyan)">Element</strong></td>
+            <td><span class="tag">h1 { }</span></td>
+            <td>Specific HTML tag ko select karo</td>
+            <td class="eg">h1 { color: red; }</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--green)">ID</strong></td>
+            <td><span class="tag">#myId { }</span></td>
+            <td>Ek specific element (unique hota hai page pe)</td>
+            <td class="eg">#header { background: black; }</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--pink)">Class</strong></td>
+            <td><span class="tag">.myClass { }</span></td>
+            <td>Same class wale sab elements (multiple ho sakte hain)</td>
+            <td class="eg">.card { border: 1px solid; }</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Selectors Example</span></div>
+        <div class="code-body">
+<span class="cm">/* Universal Selector – sabko pakdo */</span>
+<span class="sel">*</span> { <span class="prop">box-sizing</span>: <span class="val">border-box</span>; }
+
+<span class="cm">/* Element Selector – sirf h1 tags */</span>
+<span class="sel">h1</span> { <span class="prop">color</span>: <span class="val">red</span>; }
+
+<span class="cm">/* ID Selector – sirf woh element jiska id="box" hai */</span>
+<span class="sel">#box</span> { <span class="prop">background-color</span>: <span class="val">blue</span>; }
+
+<span class="cm">/* Class Selector – sab elements jinke class="heading" hai */</span>
+<span class="sel">.heading</span> { <span class="prop">font-size</span>: <span class="val">24px</span>; }
+        </div>
+      </div>
+
+      <div class="warn-box">
+        <strong>⚠️ ID vs Class</strong>
+        ID (<code>#</code>) ek page pe sirf ek baar use hoti hai — unique hoti hai. Class (<code>.</code>) multiple elements pe use ho sakti hai. Mostly class use karo!
+      </div>
+    </section>
+
+    <!-- ══════════ TEXT PROPERTIES ══════════ -->
+    <section class="section" id="text">
+      <h2 class="section-title">Text Properties – Likhawat Sundar Banao ✍️</h2>
+      <p class="section-desc">Text ke style ke liye yeh properties use hoti hain.</p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Property</th><th>Values</th><th>Kya Karta Hai</th></tr>
+          <tr>
+            <td><span class="tag">text-align</span></td>
+            <td><code class="ptag ptag-cyan">left / right / center</code></td>
+            <td>Text ko left, right ya center mein align karo (parent ke relative)</td>
+          </tr>
+          <tr>
+            <td><span class="tag">text-decoration</span></td>
+            <td><code class="ptag ptag-orange">underline / overline / line-through / none</code></td>
+            <td>Text pe line lagao — neeche, upar, ya beech mein. Links pe <code>none</code> use karo.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">font-weight</span></td>
+            <td><code class="ptag ptag-green">normal / bold / 100–900</code></td>
+            <td>Text kitna mota (bold) ho. 400 = normal, 700 = bold.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">font-size</span></td>
+            <td><code class="ptag ptag-pink">16px / 1rem / 2em</code></td>
+            <td>Text ka size. 96px = 1 inch.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">font-family</span></td>
+            <td><code class="ptag ptag-purple">arial / roboto / "Times New Roman"</code></td>
+            <td>Font ka naam. Multiple dene se fallback hota hai.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">line-height</span></td>
+            <td><code class="ptag ptag-cyan">2px / 1.5 / normal</code></td>
+            <td>Lines ke beech space kitna ho.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">text-transform</span></td>
+            <td><code class="ptag ptag-orange">uppercase / lowercase / capitalize / none</code></td>
+            <td>Text ko UPPER, lower, ya Capitalize karo automatically.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Text Properties</span></div>
+        <div class="code-body">
+<span class="sel">h1</span> {
+  <span class="prop">text-align</span>: <span class="val">center</span>;
+  <span class="prop">text-transform</span>: <span class="val">uppercase</span>;    <span class="cm">/* auto CAPS */</span>
+  <span class="prop">font-family</span>: <span class="val">arial, roboto</span>;   <span class="cm">/* fallback mechanism */</span>
+  <span class="prop">font-weight</span>: <span class="val">700</span>;              <span class="cm">/* bold */</span>
+  <span class="prop">text-decoration</span>: <span class="val">none</span>;        <span class="cm">/* links ki underline hatao */</span>
+  <span class="prop">line-height</span>: <span class="val">1.5</span>;             <span class="cm">/* comfortable reading */</span>
+}
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Font Families</strong>
+        5 generic font families hoti hain: Serif, Sans-Serif, Cursive, Fantasy, Monospace. Google Fonts pe jaao bohot saare free fonts milenge! 
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════ LEVEL 2 – BOX MODEL ══════════ -->
+    <section class="section" id="boxmodel">
+      <div class="level-header">
+        <span class="level-badge">Level 2</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">Box Model – Har Element Ek Box Hai! 📦</h2>
+      <p class="section-desc">
+        CSS mein har element ek box ki tarah hota hai. Is box ke 4 layers hoti hain:
+        Content → Padding → Border → Margin. Yeh samajhna <strong>sabse zaroori concept</strong> hai!
+      </p>
+
+      <div class="box-model-visual">
+        <div class="bm-margin">
+          <div class="bm-border">
+            <div class="bm-padding">
+              <div class="bm-content">Content</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="card" style="border-color: rgba(0,212,255,0.3);">
+          <div class="card-icon">📄</div>
+          <div class="card-title" style="color:var(--cyan)">Content</div>
+          <div class="card-body">Actual content — text, image etc. <code>width</code> aur <code>height</code> isi ka size set karta hai.</div>
+        </div>
+        <div class="card" style="border-color: rgba(34,197,94,0.3);">
+          <div class="card-icon">🛋️</div>
+          <div class="card-title" style="color:var(--green)">Padding</div>
+          <div class="card-body">Content aur border ke beech ka space. <strong>Inside</strong> element ke andar hota hai. Background color dikhti hai padding mein.</div>
+        </div>
+        <div class="card" style="border-color: rgba(167,139,250,0.3);">
+          <div class="card-icon">🖼️</div>
+          <div class="card-title" style="color:var(--purple)">Border</div>
+          <div class="card-body">Element ke chaaro taraf ki line/rekha. Width, style, color set kar sakte hain.</div>
+        </div>
+        <div class="card" style="border-color: rgba(244,114,182,0.3);">
+          <div class="card-icon">↔️</div>
+          <div class="card-title" style="color:var(--pink)">Margin</div>
+          <div class="card-body">Element ke <strong>bahar</strong> ka space. Doosre elements se duri banata hai.</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Box Model Properties</span></div>
+        <div class="code-body">
+<span class="sel">div</span> {
+  <span class="cm">/* Size */</span>
+  <span class="prop">width</span>: <span class="val">200px</span>;
+  <span class="prop">height</span>: <span class="val">100px</span>;
+
+  <span class="cm">/* Border – width | style | color */</span>
+  <span class="prop">border</span>: <span class="val">2px solid black</span>;   <span class="cm">/* shorthand */</span>
+  <span class="prop">border-radius</span>: <span class="val">10px</span>;      <span class="cm">/* corners round karo */</span>
+  <span class="prop">border-radius</span>: <span class="val">50%</span>;       <span class="cm">/* perfect circle! */</span>
+
+  <span class="cm">/* Padding – sab sides */</span>
+  <span class="prop">padding</span>: <span class="val">20px</span>;            <span class="cm">/* sab taraf 20px */</span>
+  <span class="prop">padding</span>: <span class="val">10px 20px 10px 20px</span>; <span class="cm">/* top right bottom left */</span>
+
+  <span class="cm">/* Margin – same pattern as padding */</span>
+  <span class="prop">margin</span>: <span class="val">50px</span>;
+  <span class="prop">margin</span>: <span class="val">0 auto</span>;          <span class="cm">/* center karne ka trick! */</span>
+}
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Clockwise Rule (Ghadi Ki Sui)</strong>
+        Jab 4 values dete hain: <code>padding: top right bottom left</code> — ghadi ki sui ki tarah. "TRBL" yaad rakho!
+      </div>
+    </section>
+
+    <!-- ══════════ DISPLAY ══════════ -->
+    <section class="section" id="display">
+      <h2 class="section-title">Display Property – Kaise Dikhega? 🖥️</h2>
+      <p class="section-desc">Display property decide karti hai ki element page pe kaise behave karega.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">➡️</div>
+          <div class="card-title">inline</div>
+          <div class="card-body">Sirf utni jagah leta hai jitni zaroorat hai. Margin/Padding set nahi hoti. Jaise: <code class="ptag ptag-cyan">&lt;span&gt;</code>, <code class="ptag ptag-cyan">&lt;a&gt;</code></div>
+        </div>
+        <div class="card">
+          <div class="card-icon">⬛</div>
+          <div class="card-title">block</div>
+          <div class="card-body">Poori width leta hai, nayi line se start hota hai. Jaise: <code class="ptag ptag-orange">&lt;div&gt;</code>, <code class="ptag ptag-orange">&lt;p&gt;</code>, <code class="ptag ptag-orange">&lt;h1&gt;</code></div>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔲</div>
+          <div class="card-title">inline-block</div>
+          <div class="card-body">Inline ki tarah side-by-side, lekin margin/padding kaam karti hai. Best of both!</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">👻</div>
+          <div class="card-title">none</div>
+          <div class="card-body">Element ko completely hata do. Koi space bhi nahi rehta. <em>visibility: hidden</em> se alag — woh space reserve karta hai.</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Display</span></div>
+        <div class="code-body">
+<span class="sel">span</span> { <span class="prop">display</span>: <span class="val">block</span>; }        <span class="cm">/* inline ko block banao */</span>
+<span class="sel">div</span> { <span class="prop">display</span>: <span class="val">inline-block</span>; } <span class="cm">/* block ko inline-block banao */</span>
+<span class="sel">.hidden</span> { <span class="prop">display</span>: <span class="val">none</span>; }   <span class="cm">/* element hatao */</span>
+
+<span class="cm">/* Visibility vs Display */</span>
+<span class="sel">.invisible</span> { <span class="prop">visibility</span>: <span class="val">hidden</span>; } <span class="cm">/* dikhe nahi, jagah le */</span>
+<span class="sel">.gone</span> { <span class="prop">display</span>: <span class="val">none</span>; }        <span class="cm">/* dikhe nahi, jagah bhi nahi */</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════ LEVEL 3 – POSITION ══════════ -->
+    <section class="section" id="position">
+      <div class="level-header">
+        <span class="level-badge">Level 3</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">Position – Kahan Rakhein Element? 📍</h2>
+      <p class="section-desc">
+        Position property element ko document mein kahan rakha jaayega yeh decide karti hai.
+        Iske saath <code>top, right, bottom, left, z-index</code> use hote hain.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Value</th><th>Kya Karta Hai</th><th>Top/Left Kaam Karta?</th></tr>
+          <tr>
+            <td><span class="tag">static</span></td>
+            <td>Default position. Normal page flow mein rehta hai.</td>
+            <td style="color:var(--red)">❌ Nahi</td>
+          </tr>
+          <tr>
+            <td><span class="tag">relative</span></td>
+            <td>Khud ki original position ke relative move karta hai.</td>
+            <td style="color:var(--green)">✅ Haan</td>
+          </tr>
+          <tr>
+            <td><span class="tag">absolute</span></td>
+            <td>Sabse paas ke <em>positioned</em> ancestor ke relative. Page flow se hata jaata hai.</td>
+            <td style="color:var(--green)">✅ Haan</td>
+          </tr>
+          <tr>
+            <td><span class="tag">fixed</span></td>
+            <td>Browser window ke relative. Scroll karo toh bhi nahi hilta (e.g. navbar).</td>
+            <td style="color:var(--green)">✅ Haan</td>
+          </tr>
+          <tr>
+            <td><span class="tag">sticky</span></td>
+            <td>Normal flow mein rehta hai, scroll pe ek jagah chipak jaata hai.</td>
+            <td style="color:var(--green)">✅ Haan</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Position Examples</span></div>
+        <div class="code-body">
+<span class="cm">/* Fixed Navbar – scroll pe bhi upar rehta hai */</span>
+<span class="sel">nav</span> {
+  <span class="prop">position</span>: <span class="val">fixed</span>;
+  <span class="prop">top</span>: <span class="val">0</span>;
+  <span class="prop">left</span>: <span class="val">0</span>;
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">z-index</span>: <span class="val">100</span>;  <span class="cm">/* sabke upar dikhe */</span>
+}
+
+<span class="cm">/* Absolute inside relative – common pattern */</span>
+<span class="sel">.parent</span> { <span class="prop">position</span>: <span class="val">relative</span>; }
+<span class="sel">.child</span> {
+  <span class="prop">position</span>: <span class="val">absolute</span>;
+  <span class="prop">top</span>: <span class="val">0</span>;
+  <span class="prop">right</span>: <span class="val">0</span>;  <span class="cm">/* parent ke top-right corner mein */</span>
+}
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Z-Index Kya Hai?</strong>
+        Z-index 3D layer decide karta hai. Zyada z-index wala element upar dikhai deta hai. 
+        Sochao jaise paper ke stacks — jis par zyada number, woh upar.
+      </div>
+    </section>
+
+    <!-- ══════════ UNITS ══════════ -->
+    <section class="section" id="units">
+      <h2 class="section-title">Units – Kitna Bada? 📏</h2>
+      <p class="section-desc">CSS mein size dene ke liye alag-alag units use hoti hain.</p>
+
+      <div class="card-grid">
+        <div class="card" style="border-color:rgba(245,166,35,0.3)">
+          <div class="card-icon">🔵</div>
+          <div class="card-title">px (Pixels) – Absolute</div>
+          <div class="card-body">Fixed size. Screen pe har jagah same dikhega. 96px = 1 inch. Sabse zyada use hota hai.<br><br><code class="ptag ptag-orange">font-size: 16px;</code></div>
+        </div>
+        <div class="card" style="border-color:rgba(0,212,255,0.3)">
+          <div class="card-icon">📊</div>
+          <div class="card-title">% – Relative to Parent</div>
+          <div class="card-body">Parent element ke size ke relative. Parent 500px hai toh 50% = 250px.<br><br><code class="ptag ptag-cyan">width: 50%;</code></div>
+        </div>
+        <div class="card" style="border-color:rgba(34,197,94,0.3)">
+          <div class="card-icon">🔤</div>
+          <div class="card-title">em – Relative to Parent Font</div>
+          <div class="card-body">Parent ke font-size ke relative. Nested elements mein chain create hoti hai.<br><br><code class="ptag ptag-green">font-size: 1.5em;</code></div>
+        </div>
+        <div class="card" style="border-color:rgba(167,139,250,0.3)">
+          <div class="card-icon">🌐</div>
+          <div class="card-title">rem – Root Em</div>
+          <div class="card-body">Root element (&lt;html&gt;) ke font-size ke relative. Consistent rehta hai. Best for responsive design!<br><br><code class="ptag ptag-purple">font-size: 1rem;</code></div>
+        </div>
+        <div class="card">
+          <div class="card-icon">📱</div>
+          <div class="card-title">vh / vw</div>
+          <div class="card-body">Viewport ki height/width ke 1% ke relative.<br>100vh = poori screen height.<br><br><code class="ptag ptag-pink">height: 100vh;</code></div>
+        </div>
+      </div>
+
+      <div class="warn-box">
+        <strong>⚠️ Em vs Rem</strong>
+        em parent ke font-size pe depend karta hai — nested elements mein complex ho jaata hai. rem root pe depend karta hai — predictable aur simple hai. Beginners ke liye rem better hai!
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════ LEVEL 4 – FLEXBOX ══════════ -->
+    <section class="section" id="flexbox">
+      <div class="level-header">
+        <span class="level-badge">Level 4</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">Flexbox – Layout Ka Jadoo ✨</h2>
+      <p class="section-desc">
+        Flexbox ek layout system hai jo elements ko row ya column mein arrange karta hai.
+        Pehle parent ko <code>display: flex</code> dena padta hai — phir sab magic hota hai!
+      </p>
+
+      <div class="flex-demo">
+        <div class="flex-demo-label" id="flex-label">justify-content: flex-start (default)</div>
+        <div class="flex-container" id="flexDemo">
+          <div class="flex-item">A</div>
+          <div class="flex-item">B</div>
+          <div class="flex-item">C</div>
+        </div>
+        <div class="flex-controls">
+          <button class="flex-btn active" onclick="setFlex('flex-start', this)">flex-start</button>
+          <button class="flex-btn" onclick="setFlex('flex-end', this)">flex-end</button>
+          <button class="flex-btn" onclick="setFlex('center', this)">center</button>
+          <button class="flex-btn" onclick="setFlex('space-between', this)">space-between</button>
+          <button class="flex-btn" onclick="setFlex('space-evenly', this)">space-evenly</button>
+          <button class="flex-btn" onclick="setFlex('space-around', this)">space-around</button>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Flexbox</span></div>
+        <div class="code-body">
+<span class="cm">/* Step 1: Parent ko flex banao */</span>
+<span class="sel">.container</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+
+  <span class="cm">/* Direction – kis direction mein items jaayen */</span>
+  <span class="prop">flex-direction</span>: <span class="val">row</span>;          <span class="cm">/* default: left se right */</span>
+  <span class="prop">flex-direction</span>: <span class="val">column</span>;       <span class="cm">/* upar se neeche */</span>
+
+  <span class="cm">/* Main Axis (horizontal by default) alignment */</span>
+  <span class="prop">justify-content</span>: <span class="val">center</span>;      <span class="cm">/* beech mein */</span>
+  <span class="prop">justify-content</span>: <span class="val">space-between</span>; <span class="cm">/* dono ends pe push */</span>
+  <span class="prop">justify-content</span>: <span class="val">space-evenly</span>;  <span class="cm">/* equal space */</span>
+
+  <span class="cm">/* Cross Axis (vertical by default) alignment */</span>
+  <span class="prop">align-items</span>: <span class="val">center</span>;        <span class="cm">/* vertically center */</span>
+  <span class="prop">align-items</span>: <span class="val">flex-start</span>;    <span class="cm">/* upar */</span>
+  <span class="prop">align-items</span>: <span class="val">flex-end</span>;      <span class="cm">/* neeche */</span>
+
+  <span class="cm">/* Wrap – fit na ho toh next line mein jaao */</span>
+  <span class="prop">flex-wrap</span>: <span class="val">wrap</span>;
+}
+
+<span class="cm">/* Step 2: Child items pe properties */</span>
+<span class="sel">.item</span> {
+  <span class="prop">flex-grow</span>: <span class="val">1</span>;     <span class="cm">/* available space le lo */</span>
+  <span class="prop">flex-shrink</span>: <span class="val">0</span>;   <span class="cm">/* chhota mat ho */</span>
+  <span class="prop">align-self</span>: <span class="val">center</span>; <span class="cm">/* sirf is item ko center karo */</span>
+}
+
+<span class="cm">/* Div ko perfectly center karna – popular trick! */</span>
+<span class="sel">.parent</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">justify-content</span>: <span class="val">center</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+}
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Align-items vs Align-self</strong>
+        <code>align-items</code> saare flex items pe lagti hai. <code>align-self</code> sirf ek item pe — aur yeh zyada powerful hai, align-items ko override karta hai!
+      </div>
+    </section>
+
+    <!-- ══════════ MEDIA QUERIES ══════════ -->
+    <section class="section" id="media">
+      <h2 class="section-title">Media Queries – Responsive Design 📱</h2>
+      <p class="section-desc">
+        Aajkal log website mobile pe bhi dekhte hain, laptop pe bhi. Media queries se hum alag screen sizes ke liye
+        alag styles likh sakte hain — website responsive ban jaati hai!
+      </p>
+
+      <div class="mq-demo">
+        <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">Common breakpoints:</p>
+        <div class="mq-bar">
+          <span class="mq-label">&lt; 480px</span>
+          <div class="mq-track"><div class="mq-fill" style="width:20%; background: var(--red);">📱 Mobile</div></div>
+        </div>
+        <div class="mq-bar">
+          <span class="mq-label">481–768px</span>
+          <div class="mq-track"><div class="mq-fill" style="width:45%; background: var(--accent);">📟 Tablet</div></div>
+        </div>
+        <div class="mq-bar">
+          <span class="mq-label">769–1024px</span>
+          <div class="mq-track"><div class="mq-fill" style="width:70%; background: var(--green);">💻 Laptop</div></div>
+        </div>
+        <div class="mq-bar">
+          <span class="mq-label">&gt; 1024px</span>
+          <div class="mq-track"><div class="mq-fill" style="width:100%; background: var(--cyan);">🖥️ Desktop</div></div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Media Queries</span></div>
+        <div class="code-body">
+<span class="cm">/* Sirf 600px pe */</span>
+<span class="at">@media</span> (<span class="prop">width</span>: <span class="val">600px</span>) {
+  <span class="sel">div</span> { <span class="prop">background-color</span>: <span class="val">red</span>; }
+}
+
+<span class="cm">/* 600px aur uske upar wale screens pe */</span>
+<span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">600px</span>) {
+  <span class="sel">div</span> { <span class="prop">background-color</span>: <span class="val">blue</span>; }
+}
+
+<span class="cm">/* Range – 200px se 300px ke beech */</span>
+<span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">200px</span>) and (<span class="prop">max-width</span>: <span class="val">300px</span>) {
+  <span class="sel">div</span> { <span class="prop">background-color</span>: <span class="val">green</span>; }
+}
+
+<span class="cm">/* Mobile first approach – pehle mobile style, phir bade screens ke liye */</span>
+<span class="sel">div</span> { <span class="prop">font-size</span>: <span class="val">14px</span>; }   <span class="cm">/* mobile default */</span>
+
+<span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">768px</span>) {
+  <span class="sel">div</span> { <span class="prop">font-size</span>: <span class="val">18px</span>; }  <span class="cm">/* tablet aur bade */</span>
+}
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════ LEVEL 5 – ADVANCED ══════════ -->
+    <section class="section" id="advanced">
+      <div class="level-header">
+        <span class="level-badge">Level 5</span>
+        <div class="level-line"></div>
+      </div>
+      <h2 class="section-title">Advanced CSS – Animation & Transform 🎬</h2>
+      <p class="section-desc">
+        Yeh thoda advanced hai lekin bohot interesting! Transitions, transforms, aur animations se
+        website mein life aa jaati hai.
+      </p>
+
+      <!-- TRANSFORMS -->
+      <h3 class="section-title" style="font-size:1.3rem;">Transform – Shape Badlo 🔄</h3>
+      <p style="color:var(--muted); margin-bottom:20px; font-size:14px;">Cards pe hover karo!</p>
+
+      <div class="transform-grid">
+        <div class="transform-item">
+          <div class="transform-box r">🔄</div>
+          <div class="transform-label">rotate(45deg)</div>
+        </div>
+        <div class="transform-item">
+          <div class="transform-box s">⬛</div>
+          <div class="transform-label">scale(1.4)</div>
+        </div>
+        <div class="transform-item">
+          <div class="transform-box t">➡️</div>
+          <div class="transform-label">translateX(20px)</div>
+        </div>
+        <div class="transform-item">
+          <div class="transform-box sk">📐</div>
+          <div class="transform-label">skew(15deg)</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Transform</span></div>
+        <div class="code-body">
+<span class="sel">.box</span> {
+  <span class="prop">transform</span>: <span class="val">rotate(45deg)</span>;    <span class="cm">/* ghuma do */</span>
+  <span class="prop">transform</span>: <span class="val">scale(2)</span>;         <span class="cm">/* 2x bada karo */</span>
+  <span class="prop">transform</span>: <span class="val">scale(0.5)</span>;       <span class="cm">/* aadha chhota karo */</span>
+  <span class="prop">transform</span>: <span class="val">translateX(50px)</span>; <span class="cm">/* right mein khiskaao */</span>
+  <span class="prop">transform</span>: <span class="val">translateY(-20px)</span>;<span class="cm">/* upar khiskaao */</span>
+  <span class="prop">transform</span>: <span class="val">skew(30deg)</span>;      <span class="cm">/* teda karo */</span>
+  <span class="prop">transform</span>: <span class="val">scale(1.2) rotate(10deg)</span>; <span class="cm">/* combine karo */</span>
+}
+        </div>
+      </div>
+
+      <!-- TRANSITIONS -->
+      <h3 class="section-title" style="font-size:1.3rem; margin-top:36px;">Transitions – Smoothly Change Karo 🌊</h3>
+      <p style="color:var(--muted); margin-bottom:20px; font-size:14px;">Neeche wale button pe hover karo!</p>
+
+      <div style="padding:24px; background:var(--card); border-radius:12px; border:1px solid var(--border); margin-bottom:20px;">
+        <button style="
+          padding: 14px 32px;
+          background: var(--accent);
+          color: #000;
+          border: none;
+          border-radius: 10px;
+          font-size: 16px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-family: 'Nunito', sans-serif;
+        "
+        onmouseover="this.style.transform='scale(1.08) translateY(-3px)'; this.style.boxShadow='0 12px 30px rgba(245,166,35,0.5)'"
+        onmouseout="this.style.transform=''; this.style.boxShadow=''">
+          Hover Karo Mujhpe! ✨
+        </button>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Transitions</span></div>
+        <div class="code-body">
+<span class="sel">button</span> {
+  <span class="prop">background</span>: <span class="val">orange</span>;
+  <span class="cm">/* property | duration | timing | delay */</span>
+  <span class="prop">transition</span>: <span class="val">all 0.3s ease-in-out 0s</span>;
+}
+
+<span class="sel">button:hover</span> {
+  <span class="prop">transform</span>: <span class="val">scale(1.1)</span>;
+  <span class="prop">background</span>: <span class="val">darkorange</span>;
+  <span class="cm">/* Transition automatically smooth animation karega! */</span>
+}
+
+<span class="cm">/* Timing functions:
+   ease = slow → fast → slow
+   linear = uniform speed
+   ease-in = slow start
+   ease-out = slow end */</span>
+        </div>
+      </div>
+
+      <!-- ANIMATIONS -->
+      <h3 class="section-title" style="font-size:1.3rem; margin-top:36px;">CSS Animations – Life Daalo! 🎪</h3>
+
+      <div class="anim-demo">
+        <div style="text-align:center;">
+          <div class="spin-box"></div>
+          <p style="margin-top:12px; font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace;">Loader</p>
+        </div>
+        <div class="demo-box pulse-box">💗<br>Pulse</div>
+        <div class="demo-box slide-box">➡️<br>Slide</div>
+        <div class="demo-box bounce-box">⬆️<br>Bounce</div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – @keyframes Animation</span></div>
+        <div class="code-body">
+<span class="cm">/* Step 1: Animation define karo */</span>
+<span class="at">@keyframes</span> <span class="sel">spin</span> {
+  <span class="kw">from</span> { <span class="prop">transform</span>: <span class="val">rotate(0deg)</span>; }
+  <span class="kw">to</span>   { <span class="prop">transform</span>: <span class="val">rotate(360deg)</span>; }
+}
+
+<span class="cm">/* % se multiple steps */</span>
+<span class="at">@keyframes</span> <span class="sel">myAnim</span> {
+  <span class="val">0%</span>   { <span class="prop">font-size</span>: <span class="val">20px</span>; }
+  <span class="val">50%</span>  { <span class="prop">font-size</span>: <span class="val">30px</span>; }
+  <span class="val">100%</span> { <span class="prop">font-size</span>: <span class="val">20px</span>; }
+}
+
+<span class="cm">/* Step 2: Element pe lagaao */</span>
+<span class="sel">.loader</span> {
+  <span class="prop">width</span>: <span class="val">60px</span>;
+  <span class="prop">height</span>: <span class="val">60px</span>;
+  <span class="prop">border-radius</span>: <span class="val">50%</span>;
+  <span class="prop">border</span>: <span class="val">4px solid transparent</span>;
+  <span class="prop">border-top</span>: <span class="val">4px solid orange</span>;
+  <span class="cm">/* name | duration | timing | delay | count | direction */</span>
+  <span class="prop">animation</span>: <span class="val">spin 1s linear infinite</span>;
+}
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════ PRACTICE SETS ══════════ -->
+    <section class="section" id="practice">
+      <h2 class="section-title">Practice Sets – Ab Karo Code! 🚀</h2>
+      <p class="section-desc">Theory padh li? Ab practice karo! Yeh sets Apna College ke notes se hain.</p>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 1 – CSS Basics</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Ek <code>div</code> banao jiska id <code>"box"</code> ho. Kuch text daalo usme. Background color blue set karo.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>3 headings banao — h1, h2, h3. Teeno ko class <code>"heading"</code> do. Class ka color red set karo.</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Ek button banao aur uska background color teen jagah se set karo: External CSS se green, <code>&lt;style&gt;</code> tag se blue, Inline style se pink. (Dekhna — inline jeetega!)</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 2 – Text Properties</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Ek heading banao jo page pe center ho aur automatically CAPITALIZE dikhe.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Poore document ka font family "Times New Roman" set karo.</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Ek div ke andar doosra div banao. Outer div ka text size 25px, inner ka 10px set karo.</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 3 – Box Model</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>100px × 100px ka div banao. Background green, border-radius 50% — ek perfect circle ban jaayega!</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Amazon jaisi navbar banao: "amazon.in" (yellow color), Account, My Cart, Contact Us links, aur Search input+button. Background black (#0f1111), height 60px.</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 6 – Flexbox</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>4 list items wali navbar banao jisme anchor tags hoon. Flexbox se sabko ek line mein equal space ke saath arrange karo.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>Flexbox use karke ek div ko doosre div ke andar perfectly center karo (horizontally + vertically dono).</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Kaunsi zyada powerful hai — align-items ya align-self? (Answer: align-self!)</div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 7 – Media Queries</div>
+        <div class="practice-item"><div class="practice-num">Q</div><div>Ek div banao jiska color change ho:<br>
+          📱 300px se chhota → <span style="color:var(--green)">Green</span><br>
+          300–400px → <span style="color:var(--pink)">Pink</span><br>
+          400–600px → <span style="color:var(--red)">Red</span><br>
+          600px se bada → <span style="color:var(--cyan)">Blue</span>
+        </div></div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">🚀 Practice Set 8 – CSS Loader</div>
+        <div class="practice-item"><div class="practice-num">1</div><div>Ek div banao circular shape mein. Border ek side se mota aur colored, baaki transparent.</div></div>
+        <div class="practice-item"><div class="practice-num">2</div><div>@keyframes se animation banao: 0deg se 360deg tak rotate kare.</div></div>
+        <div class="practice-item"><div class="practice-num">3</div><div>Div pe animation lagao with infinite iteration. Spinning loader ready! 🎉</div></div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div><span class="code-lang">CSS – Loader Solution</span></div>
+        <div class="code-body">
+<span class="at">@keyframes</span> <span class="sel">spin</span> {
+  <span class="kw">from</span> { <span class="prop">transform</span>: <span class="val">rotate(0deg)</span>; }
+  <span class="kw">to</span>   { <span class="prop">transform</span>: <span class="val">rotate(360deg)</span>; }
+}
+
+<span class="sel">.loader</span> {
+  <span class="prop">width</span>: <span class="val">60px</span>;
+  <span class="prop">height</span>: <span class="val">60px</span>;
+  <span class="prop">border-radius</span>: <span class="val">50%</span>;
+  <span class="prop">border</span>: <span class="val">6px solid rgba(255,255,255,0.1)</span>;
+  <span class="prop">border-top-color</span>: <span class="val">orange</span>;
+  <span class="prop">animation</span>: <span class="val">spin 1s linear infinite</span>;
+}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ QUICK REFERENCE ══════════ -->
+    <section class="section">
+      <h2 class="section-title">Quick Reference – Jaldi Yaad Karo 📋</h2>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">🎨 Colors</div>
+          <div class="card-body">
+            <code class="ptag ptag-cyan">color: red</code><br>
+            <code class="ptag ptag-cyan">color: #ff0000</code><br>
+            <code class="ptag ptag-cyan">color: rgb(255,0,0)</code><br>
+            <code class="ptag ptag-cyan">color: rgba(255,0,0,0.5)</code>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📦 Box Model</div>
+          <div class="card-body">
+            <code class="ptag ptag-orange">margin: 10px</code><br>
+            <code class="ptag ptag-orange">padding: 10px 20px</code><br>
+            <code class="ptag ptag-orange">border: 2px solid red</code><br>
+            <code class="ptag ptag-orange">border-radius: 50%</code>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📐 Flexbox</div>
+          <div class="card-body">
+            <code class="ptag ptag-green">display: flex</code><br>
+            <code class="ptag ptag-green">justify-content: center</code><br>
+            <code class="ptag ptag-green">align-items: center</code><br>
+            <code class="ptag ptag-green">flex-wrap: wrap</code>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📍 Position</div>
+          <div class="card-body">
+            <code class="ptag ptag-pink">position: fixed</code><br>
+            <code class="ptag ptag-pink">position: absolute</code><br>
+            <code class="ptag ptag-pink">position: relative</code><br>
+            <code class="ptag ptag-pink">z-index: 100</code>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">🎬 Animation</div>
+          <div class="card-body">
+            <code class="ptag ptag-purple">transition: all 0.3s ease</code><br>
+            <code class="ptag ptag-purple">transform: rotate(45deg)</code><br>
+            <code class="ptag ptag-purple">transform: scale(1.2)</code><br>
+            <code class="ptag ptag-purple">animation: spin 1s infinite</code>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📱 Responsive</div>
+          <div class="card-body">
+            <code class="ptag ptag-cyan">@media (max-width: 768px)</code><br>
+            <code class="ptag ptag-cyan">width: 100%</code><br>
+            <code class="ptag ptag-cyan">height: 100vh</code><br>
+            <code class="ptag ptag-cyan">font-size: 1rem</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Made with ❤️ for CSS learners | <span>Apna College</span> Style 🎓<br>
+  <span style="color:var(--muted); font-size:12px;">HTML • CSS • JavaScript — web development ka trifecta!</span>
+</footer>
+
+<script>
+  // Flexbox interactive demo
+  function setFlex(value, btn) {
+    document.getElementById('flexDemo').style.justifyContent = value;
+    document.getElementById('flex-label').textContent = 'justify-content: ' + value;
+    document.querySelectorAll('.flex-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // Sidebar active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navItems.forEach(n => {
+      n.classList.remove('active');
+      if (n.getAttribute('href') === '#' + current) n.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
